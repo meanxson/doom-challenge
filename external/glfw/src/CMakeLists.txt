@@ -217,7 +217,7 @@ if (GLFW_BUILD_X11)
     endif()
     target_include_directories(glfw PRIVATE "${X11_Xi_INCLUDE_PATH}")
 
-    # Check for X Shape (custom window input shape)
+    # Check for X Shape (custom Window input shape)
     if (NOT X11_Xshape_INCLUDE_PATH)
         message(FATAL_ERROR "X Shape headers not found; install libxext development package")
     endif()

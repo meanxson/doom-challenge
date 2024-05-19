@@ -359,7 +359,7 @@ For more details see the
 
 If you wish to compile GLFW without its CMake build environment then you will have to do
 at least some platform-detection yourself.  There are preprocessor macros for
-enabling support for the platforms (window systems) available.  There are also optional,
+enabling support for the platforms (Window systems) available.  There are also optional,
 platform-specific macros for various features.
 
 When building, GLFW will expect the necessary configuration macros to be defined
@@ -367,7 +367,7 @@ on the command-line.  The GLFW CMake files set these as private compile
 definitions on the GLFW target but if you compile the GLFW sources manually you
 will need to define them yourself.
 
-The window system is used to create windows, handle input, monitors, gamma ramps and
+The Window system is used to create windows, handle input, monitors, gamma ramps and
 clipboard.  The options are:
 
  - @b _GLFW_COCOA to use the Cocoa frameworks

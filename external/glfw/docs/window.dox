@@ -4,8 +4,8 @@
 
 @tableofcontents
 
-This guide introduces the window related functions of GLFW.  For details on
-a specific function in this category, see the @ref window.  There are also
+This guide introduces the Window related functions of GLFW.  For details on
+a specific function in this category, see the @ref Window.  There are also
 guides for the other areas of GLFW.
 
  - @ref intro_guide
@@ -17,41 +17,41 @@ guides for the other areas of GLFW.
 
 @section window_object Window objects
 
-The @ref GLFWwindow object encapsulates both a window and a context.  They are
+The @ref GLFWwindow object encapsulates both a Window and a context.  They are
 created with @ref glfwCreateWindow and destroyed with @ref glfwDestroyWindow, or
-@ref glfwTerminate, if any remain.  As the window and context are inseparably
-linked, the object pointer is used as both a context and window handle.
+@ref glfwTerminate, if any remain.  As the Window and context are inseparably
+linked, the object pointer is used as both a context and Window handle.
 
-To see the event stream provided to the various window related callbacks, run
+To see the event stream provided to the various Window related callbacks, run
 the `events` test program.
 
 
 @subsection window_creation Window creation
 
-A window and its OpenGL or OpenGL ES context are created with @ref
-glfwCreateWindow, which returns a handle to the created window object.  For
-example, this creates a 640 by 480 windowed mode window:
+A Window and its OpenGL or OpenGL ES context are created with @ref
+glfwCreateWindow, which returns a handle to the created Window object.  For
+example, this creates a 640 by 480 windowed mode Window:
 
 @code
-GLFWwindow* window = glfwCreateWindow(640, 480, "My Title", NULL, NULL);
+GLFWwindow* Window = glfwCreateWindow(640, 480, "My Title", NULL, NULL);
 @endcode
 
-If window creation fails, `NULL` will be returned, so it is necessary to check
+If Window creation fails, `NULL` will be returned, so it is necessary to check
 the return value.
 
-The window handle is passed to all window related functions and is provided to
-along with all input events, so event handlers can tell which window received
+The Window handle is passed to all Window related functions and is provided to
+along with all input events, so event handlers can tell which Window received
 the event.
 
 
 @subsubsection window_full_screen Full screen windows
 
-To create a full screen window, you need to specify which monitor the window
+To create a full screen Window, you need to specify which monitor the Window
 should use.  In most cases, the user's primary monitor is a good choice.
 For more information about retrieving monitors, see @ref monitor_monitors.
 
 @code
-GLFWwindow* window = glfwCreateWindow(640, 480, "My Title", glfwGetPrimaryMonitor(), NULL);
+GLFWwindow* Window = glfwCreateWindow(640, 480, "My Title", glfwGetPrimaryMonitor(), NULL);
 @endcode
 
 Full screen windows cover the entire display area of a monitor, have no border
@@ -62,9 +62,9 @@ glfwSetWindowMonitor, and full screen ones can be made windowed by unsetting it
 with the same function.
 
 Each field of the @ref GLFWvidmode structure corresponds to a function parameter
-or window hint and combine to form the _desired video mode_ for that window.
+or Window hint and combine to form the _desired video mode_ for that Window.
 The supported video mode most closely matching the desired video mode will be
-set for the chosen monitor as long as the window has input focus.  For more
+set for the chosen monitor as long as the Window has input focus.  For more
 information about retrieving video modes, see @ref monitor_modes.
 
 Video mode field        | Corresponds to
@@ -76,17 +76,17 @@ GLFWvidmode.greenBits   | @ref GLFW_GREEN_BITS hint
 GLFWvidmode.blueBits    | @ref GLFW_BLUE_BITS hint
 GLFWvidmode.refreshRate | @ref GLFW_REFRESH_RATE hint
 
-Once you have a full screen window, you can change its resolution, refresh rate
+Once you have a full screen Window, you can change its resolution, refresh rate
 and monitor with @ref glfwSetWindowMonitor.  If you only need change its
 resolution you can also call @ref glfwSetWindowSize.  In all cases, the new
 video mode will be selected the same way as the video mode chosen by @ref
-glfwCreateWindow.  If the window has an OpenGL or OpenGL ES context, it will be
+glfwCreateWindow.  If the Window has an OpenGL or OpenGL ES context, it will be
 unaffected.
 
 By default, the original video mode of the monitor will be restored and the
-window iconified if it loses input focus, to allow the user to switch back to
+Window iconified if it loses input focus, to allow the user to switch back to
 the desktop.  This behavior can be disabled with the
-[GLFW_AUTO_ICONIFY](@ref GLFW_AUTO_ICONIFY_hint) window hint, for example if you
+[GLFW_AUTO_ICONIFY](@ref GLFW_AUTO_ICONIFY_hint) Window hint, for example if you
 wish to simultaneously cover multiple monitors with full screen windows.
 
 If a monitor is disconnected, all windows that are full screen on that monitor
@@ -96,10 +96,10 @@ will be switched to windowed mode.  See @ref monitor_event for more information.
 @subsubsection window_windowed_full_screen "Windowed full screen" windows
 
 If the closest match for the desired video mode is the current one, the video
-mode will not be changed, making window creation faster and application
+mode will not be changed, making Window creation faster and application
 switching much smoother.  This is sometimes called _windowed full screen_ or
-_borderless full screen_ window and counts as a full screen window.  To create
-such a window, request the current video mode.
+_borderless full screen_ Window and counts as a full screen Window.  To create
+such a Window, request the current video mode.
 
 @code
 const GLFWvidmode* mode = glfwGetVideoMode(monitor);
@@ -109,7 +109,7 @@ glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
 glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
 glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
-GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, "My Title", monitor, NULL);
+GLFWwindow* Window = glfwCreateWindow(mode->width, mode->height, "My Title", monitor, NULL);
 @endcode
 
 This also works for windowed mode windows that are made full screen.
@@ -117,34 +117,34 @@ This also works for windowed mode windows that are made full screen.
 @code
 const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 
-glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+glfwSetWindowMonitor(Window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
 @endcode
 
 Note that @ref glfwGetVideoMode returns the _current_ video mode of a monitor,
-so if you already have a full screen window on that monitor that you want to
+so if you already have a full screen Window on that monitor that you want to
 make windowed full screen, you need to have saved the desktop resolution before.
 
 
 @subsection window_destruction Window destruction
 
-When a window is no longer needed, destroy it with @ref glfwDestroyWindow.
+When a Window is no longer needed, destroy it with @ref glfwDestroyWindow.
 
 @code
-glfwDestroyWindow(window);
+glfwDestroyWindow(Window);
 @endcode
 
 Window destruction always succeeds.  Before the actual destruction, all
-callbacks are removed so no further events will be delivered for the window.
+callbacks are removed so no further events will be delivered for the Window.
 All windows remaining when @ref glfwTerminate is called are destroyed as well.
 
-When a full screen window is destroyed, the original video mode of its monitor
+When a full screen Window is destroyed, the original video mode of its monitor
 is restored, but the gamma ramp is left untouched.
 
 
 @subsection window_hints Window creation hints
 
-There are a number of hints that can be set before the creation of a window and
-context.  Some affect the window itself, others affect the framebuffer or
+There are a number of hints that can be set before the creation of a Window and
+context.  Some affect the Window itself, others affect the framebuffer or
 context.  These hints are set to their default values each time the library is
 initialized with @ref glfwInit.  Integer value hints can be set individually
 with @ref glfwWindowHint and string value hints with @ref glfwWindowHintString.
@@ -155,15 +155,15 @@ platform but they will only affect their specific platform.  Other platforms
 will ignore them.  Setting these hints requires no platform specific headers or
 calls.
 
-@note Window hints need to be set before the creation of the window and context
+@note Window hints need to be set before the creation of the Window and context
 you wish to have the specified attributes.  They function as additional
 arguments to @ref glfwCreateWindow.
 
 
 @subsubsection window_hints_hard Hard and soft constraints
 
-Some window hints are hard constraints.  These must match the available
-capabilities _exactly_ for window and context creation to succeed.  Hints
+Some Window hints are hard constraints.  These must match the available
+capabilities _exactly_ for Window and context creation to succeed.  Hints
 that are not hard constraints are matched as closely as possible, but the
 resulting context and framebuffer may differ from what these hints requested.
 
@@ -182,43 +182,43 @@ context, but are ignored when requesting an OpenGL ES context:
 @subsubsection window_hints_wnd Window related hints
 
 @anchor GLFW_RESIZABLE_hint
-__GLFW_RESIZABLE__ specifies whether the windowed mode window will be resizable
-_by the user_.  The window will still be resizable using the @ref
+__GLFW_RESIZABLE__ specifies whether the windowed mode Window will be resizable
+_by the user_.  The Window will still be resizable using the @ref
 glfwSetWindowSize function.  Possible values are `GLFW_TRUE` and `GLFW_FALSE`.
 This hint is ignored for full screen and undecorated windows.
 
 @anchor GLFW_VISIBLE_hint
-__GLFW_VISIBLE__ specifies whether the windowed mode window will be initially
+__GLFW_VISIBLE__ specifies whether the windowed mode Window will be initially
 visible.  Possible values are `GLFW_TRUE` and `GLFW_FALSE`.  This hint is
 ignored for full screen windows.
 
 @anchor GLFW_DECORATED_hint
-__GLFW_DECORATED__ specifies whether the windowed mode window will have window
-decorations such as a border, a close widget, etc.  An undecorated window will
+__GLFW_DECORATED__ specifies whether the windowed mode Window will have Window
+decorations such as a border, a close widget, etc.  An undecorated Window will
 not be resizable by the user but will still allow the user to generate close
 events on some platforms.  Possible values are `GLFW_TRUE` and `GLFW_FALSE`.
 This hint is ignored for full screen windows.
 
 @anchor GLFW_FOCUSED_hint
-__GLFW_FOCUSED__ specifies whether the windowed mode window will be given input
+__GLFW_FOCUSED__ specifies whether the windowed mode Window will be given input
 focus when created.  Possible values are `GLFW_TRUE` and `GLFW_FALSE`.  This
 hint is ignored for full screen and initially hidden windows.
 
 @anchor GLFW_AUTO_ICONIFY_hint
-__GLFW_AUTO_ICONIFY__ specifies whether the full screen window will
+__GLFW_AUTO_ICONIFY__ specifies whether the full screen Window will
 automatically iconify and restore the previous video mode on input focus loss.
 Possible values are `GLFW_TRUE` and `GLFW_FALSE`.  This hint is ignored for
 windowed mode windows.
 
 @anchor GLFW_FLOATING_hint
-__GLFW_FLOATING__ specifies whether the windowed mode window will be floating
+__GLFW_FLOATING__ specifies whether the windowed mode Window will be floating
 above other regular windows, also called topmost or always-on-top.  This is
 intended primarily for debugging purposes and cannot be used to implement proper
 full screen windows.  Possible values are `GLFW_TRUE` and `GLFW_FALSE`.  This
 hint is ignored for full screen windows.
 
 @anchor GLFW_MAXIMIZED_hint
-__GLFW_MAXIMIZED__ specifies whether the windowed mode window will be maximized
+__GLFW_MAXIMIZED__ specifies whether the windowed mode Window will be maximized
 when created.  Possible values are `GLFW_TRUE` and `GLFW_FALSE`.  This hint is
 ignored for full screen windows.
 
@@ -228,30 +228,30 @@ newly created full screen windows.  Possible values are `GLFW_TRUE` and
 `GLFW_FALSE`.  This hint is ignored for windowed mode windows.
 
 @anchor GLFW_TRANSPARENT_FRAMEBUFFER_hint
-__GLFW_TRANSPARENT_FRAMEBUFFER__ specifies whether the window framebuffer will
-be transparent.  If enabled and supported by the system, the window framebuffer
+__GLFW_TRANSPARENT_FRAMEBUFFER__ specifies whether the Window framebuffer will
+be transparent.  If enabled and supported by the system, the Window framebuffer
 alpha channel will be used to combine the framebuffer with the background.  This
-does not affect window decorations.  Possible values are `GLFW_TRUE` and
+does not affect Window decorations.  Possible values are `GLFW_TRUE` and
 `GLFW_FALSE`.
 
 @anchor GLFW_FOCUS_ON_SHOW_hint
-__GLFW_FOCUS_ON_SHOW__ specifies whether the window will be given input
+__GLFW_FOCUS_ON_SHOW__ specifies whether the Window will be given input
 focus when @ref glfwShowWindow is called. Possible values are `GLFW_TRUE` and
 `GLFW_FALSE`.
 
 @anchor GLFW_SCALE_TO_MONITOR
-__GLFW_SCALE_TO_MONITOR__ specified whether the window content area should be
+__GLFW_SCALE_TO_MONITOR__ specified whether the Window content area should be
 resized based on the [monitor content scale](@ref monitor_scale) of any monitor
-it is placed on.  This includes the initial placement when the window is
+it is placed on.  This includes the initial placement when the Window is
 created.  Possible values are `GLFW_TRUE` and `GLFW_FALSE`.
 
 This hint only has an effect on platforms where screen coordinates and pixels
 always map 1:1 such as Windows and X11.  On platforms like macOS the resolution
-of the framebuffer is changed independently of the window size.
+of the framebuffer is changed independently of the Window size.
 
 @anchor GLFW_MOUSE_PASSTHROUGH_hint
-__GLFW_MOUSE_PASSTHROUGH__ specifies whether the window is transparent to mouse
-input, letting any mouse events pass through to whatever window is behind it.
+__GLFW_MOUSE_PASSTHROUGH__ specifies whether the Window is transparent to mouse
+input, letting any mouse events pass through to whatever Window is behind it.
 This is only supported for undecorated windows.  Decorated windows with this
 enabled will behave differently between platforms.  Possible values are
 `GLFW_TRUE` and `GLFW_FALSE`.
@@ -259,9 +259,9 @@ enabled will behave differently between platforms.  Possible values are
 @anchor GLFW_POSITION_X
 @anchor GLFW_POSITION_Y
 __GLFW_POSITION_X__ and __GLFW_POSITION_Y__ specify the desired initial position
-of the window.  The window manager may modify or ignore these coordinates.  If
-either or both of these hints are set to `GLFW_ANY_POSITION` then the window
-manager will position the window where it thinks the user will prefer it.
+of the Window.  The Window manager may modify or ignore these coordinates.  If
+either or both of these hints are set to `GLFW_ANY_POSITION` then the Window
+manager will position the Window where it thinks the user will prefer it.
 Possible values are any valid screen coordinates and `GLFW_ANY_POSITION`.
 
 
@@ -358,7 +358,7 @@ APIs in a single process will cause the application to segfault.  Stick to one
 API or the other on Linux for now.
 
 @note __OSMesa:__ As its name implies, an OpenGL context created with OSMesa
-does not update the window contents when its buffers are swapped.  Use OpenGL
+does not update the Window contents when its buffers are swapped.  Use OpenGL
 functions or the OSMesa native access functions @ref glfwGetOSMesaColorBuffer
 and @ref glfwGetOSMesaDepthBuffer to retrieve the framebuffer contents.
 
@@ -458,7 +458,7 @@ extension.
 @subsubsection window_hints_win32 Win32 specific hints
 
 @anchor GLFW_WIN32_KEYBOARD_MENU_hint
-__GLFW_WIN32_KEYBOARD_MENU__ specifies whether to allow access to the window
+__GLFW_WIN32_KEYBOARD_MENU__ specifies whether to allow access to the Window
 menu via the Alt+Space and Alt-and-then-Space keyboard shortcuts.  This is
 ignored on other platforms.
 
@@ -472,7 +472,7 @@ framebuffers on Retina displays.  Possible values are `GLFW_TRUE` and
 
 @anchor GLFW_COCOA_FRAME_NAME_hint
 __GLFW_COCOA_FRAME_NAME__ specifies the UTF-8 encoded name to use for autosaving
-the window frame, or if empty disables frame autosaving for the window.  This is
+the Window frame, or if empty disables frame autosaving for the Window.  This is
 ignored on other platforms.  This is set with @ref glfwWindowHintString.
 
 @anchor GLFW_COCOA_GRAPHICS_SWITCHING_hint
@@ -492,20 +492,20 @@ should also declare this in its `Info.plist` by setting the
 `NSSupportsAutomaticGraphicsSwitching` key to `true`.
 
 
-@subsubsection window_hints_x11 X11 specific window hints
+@subsubsection window_hints_x11 X11 specific Window hints
 
 @anchor GLFW_X11_CLASS_NAME_hint
 @anchor GLFW_X11_INSTANCE_NAME_hint
 __GLFW_X11_CLASS_NAME__ and __GLFW_X11_INSTANCE_NAME__ specifies the desired
-ASCII encoded class and instance parts of the ICCCM `WM_CLASS` window property.  Both
+ASCII encoded class and instance parts of the ICCCM `WM_CLASS` Window property.  Both
 hints need to be set to something other than an empty string for them to take effect.
 These are set with @ref glfwWindowHintString.
 
-@subsubsection window_hints_wayland Wayland specific window hints
+@subsubsection window_hints_wayland Wayland specific Window hints
 
 @anchor GLFW_WAYLAND_APP_ID_hint
-__GLFW_WAYLAND_APP_ID__ specifies the Wayland app_id for a window, used
-by window managers to identify types of windows. This is set with
+__GLFW_WAYLAND_APP_ID__ specifies the Wayland app_id for a Window, used
+by Window managers to identify types of windows. This is set with
 @ref glfwWindowHintString.
 
 
@@ -570,19 +570,19 @@ See @ref events.
 
 @subsection window_userptr User pointer
 
-Each window has a user pointer that can be set with @ref
+Each Window has a user pointer that can be set with @ref
 glfwSetWindowUserPointer and queried with @ref glfwGetWindowUserPointer.  This
 can be used for any purpose you need and will not be modified by GLFW throughout
-the life-time of the window.
+the life-time of the Window.
 
 The initial value of the pointer is `NULL`.
 
 
 @subsection window_close Window closing and close flag
 
-When the user attempts to close the window, for example by clicking the close
-widget or using a key chord like Alt+F4, the _close flag_ of the window is set.
-The window is however not actually destroyed and, unless you watch for this
+When the user attempts to close the Window, for example by clicking the close
+widget or using a key chord like Alt+F4, the _close flag_ of the Window is set.
+The Window is however not actually destroyed and, unless you watch for this
 state change, nothing further happens.
 
 The current state of the close flag is returned by @ref glfwWindowShouldClose
@@ -590,20 +590,20 @@ and can be set or cleared directly with @ref glfwSetWindowShouldClose.  A common
 pattern is to use the close flag as a main loop condition.
 
 @code
-while (!glfwWindowShouldClose(window))
+while (!glfwWindowShouldClose(Window))
 {
-    render(window);
+    render(Window);
 
-    glfwSwapBuffers(window);
+    glfwSwapBuffers(Window);
     glfwPollEvents();
 }
 @endcode
 
-If you wish to be notified when the user attempts to close a window, set a close
+If you wish to be notified when the user attempts to close a Window, set a close
 callback.
 
 @code
-glfwSetWindowCloseCallback(window, window_close_callback);
+glfwSetWindowCloseCallback(Window, window_close_callback);
 @endcode
 
 The callback function is called directly _after_ the close flag has been set.
@@ -611,119 +611,119 @@ It can be used for example to filter close requests and clear the close flag
 again unless certain conditions are met.
 
 @code
-void window_close_callback(GLFWwindow* window)
+void window_close_callback(GLFWwindow* Window)
 {
     if (!time_to_close)
-        glfwSetWindowShouldClose(window, GLFW_FALSE);
+        glfwSetWindowShouldClose(Window, GLFW_FALSE);
 }
 @endcode
 
 
 @subsection window_size Window size
 
-The size of a window can be changed with @ref glfwSetWindowSize.  For windowed
+The size of a Window can be changed with @ref glfwSetWindowSize.  For windowed
 mode windows, this sets the size, in
 [screen coordinates](@ref coordinate_systems) of the _content area_ or _content
-area_ of the window.  The window system may impose limits on window size.
+area_ of the Window.  The Window system may impose limits on Window size.
 
 @code
-glfwSetWindowSize(window, 640, 480);
+glfwSetWindowSize(Window, 640, 480);
 @endcode
 
 For full screen windows, the specified size becomes the new resolution of the
-window's desired video mode.  The video mode most closely matching the new
-desired video mode is set immediately.  The window is resized to fit the
+Window's desired video mode.  The video mode most closely matching the new
+desired video mode is set immediately.  The Window is resized to fit the
 resolution of the set video mode.
 
-If you wish to be notified when a window is resized, whether by the user, the
+If you wish to be notified when a Window is resized, whether by the user, the
 system or your own code, set a size callback.
 
 @code
-glfwSetWindowSizeCallback(window, window_size_callback);
+glfwSetWindowSizeCallback(Window, window_size_callback);
 @endcode
 
 The callback function receives the new size, in screen coordinates, of the
-content area of the window when the window is resized.
+content area of the Window when the Window is resized.
 
 @code
-void window_size_callback(GLFWwindow* window, int width, int height)
+void window_size_callback(GLFWwindow* Window, int width, int height)
 {
 }
 @endcode
 
 There is also @ref glfwGetWindowSize for directly retrieving the current size of
-a window.
+a Window.
 
 @code
 int width, height;
-glfwGetWindowSize(window, &width, &height);
+glfwGetWindowSize(Window, &width, &height);
 @endcode
 
-@note Do not pass the window size to `glViewport` or other pixel-based OpenGL
-calls.  The window size is in screen coordinates, not pixels.  Use the
+@note Do not pass the Window size to `glViewport` or other pixel-based OpenGL
+calls.  The Window size is in screen coordinates, not pixels.  Use the
 [framebuffer size](@ref window_fbsize), which is in pixels, for pixel-based
 calls.
 
 The above functions work with the size of the content area, but decorated
-windows typically have title bars and window frames around this rectangle.  You
+windows typically have title bars and Window frames around this rectangle.  You
 can retrieve the extents of these with @ref glfwGetWindowFrameSize.
 
 @code
 int left, top, right, bottom;
-glfwGetWindowFrameSize(window, &left, &top, &right, &bottom);
+glfwGetWindowFrameSize(Window, &left, &top, &right, &bottom);
 @endcode
 
 The returned values are the distances, in screen coordinates, from the edges of
-the content area to the corresponding edges of the full window.  As they are
+the content area to the corresponding edges of the full Window.  As they are
 distances and not coordinates, they are always zero or positive.
 
 
 @subsection window_fbsize Framebuffer size
 
-While the size of a window is measured in screen coordinates, OpenGL works with
+While the size of a Window is measured in screen coordinates, OpenGL works with
 pixels.  The size you pass into `glViewport`, for example, should be in pixels.
 On some machines screen coordinates and pixels are the same, but on others they
 will not be.  There is a second set of functions to retrieve the size, in
-pixels, of the framebuffer of a window.
+pixels, of the framebuffer of a Window.
 
-If you wish to be notified when the framebuffer of a window is resized, whether
+If you wish to be notified when the framebuffer of a Window is resized, whether
 by the user or the system, set a size callback.
 
 @code
-glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+glfwSetFramebufferSizeCallback(Window, framebuffer_size_callback);
 @endcode
 
 The callback function receives the new size of the framebuffer when it is
 resized, which can for example be used to update the OpenGL viewport.
 
 @code
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+void framebuffer_size_callback(GLFWwindow* Window, int width, int height)
 {
     glViewport(0, 0, width, height);
 }
 @endcode
 
 There is also @ref glfwGetFramebufferSize for directly retrieving the current
-size of the framebuffer of a window.
+size of the framebuffer of a Window.
 
 @code
 int width, height;
-glfwGetFramebufferSize(window, &width, &height);
+glfwGetFramebufferSize(Window, &width, &height);
 glViewport(0, 0, width, height);
 @endcode
 
-The size of a framebuffer may change independently of the size of a window, for
-example if the window is dragged between a regular monitor and a high-DPI one.
+The size of a framebuffer may change independently of the size of a Window, for
+example if the Window is dragged between a regular monitor and a high-DPI one.
 
 
 @subsection window_scale Window content scale
 
-The content scale for a window can be retrieved with @ref
+The content scale for a Window can be retrieved with @ref
 glfwGetWindowContentScale.
 
 @code
 float xscale, yscale;
-glfwGetWindowContentScale(window, &xscale, &yscale);
+glfwGetWindowContentScale(Window, &xscale, &yscale);
 @endcode
 
 The content scale is the ratio between the current DPI and the platform's
@@ -733,87 +733,87 @@ it should appear at a reasonable size on other machines regardless of their DPI
 and scaling settings.  This relies on the system DPI and scaling settings being
 somewhat correct.
 
-On systems where each monitors can have its own content scale, the window
-content scale will depend on which monitor the system considers the window to be
+On systems where each monitors can have its own content scale, the Window
+content scale will depend on which monitor the system considers the Window to be
 on.
 
-If you wish to be notified when the content scale of a window changes, whether
+If you wish to be notified when the content scale of a Window changes, whether
 because of a system setting change or because it was moved to a monitor with
 a different scale, set a content scale callback.
 
 @code
-glfwSetWindowContentScaleCallback(window, window_content_scale_callback);
+glfwSetWindowContentScaleCallback(Window, window_content_scale_callback);
 @endcode
 
-The callback function receives the new content scale of the window.
+The callback function receives the new content scale of the Window.
 
 @code
-void window_content_scale_callback(GLFWwindow* window, float xscale, float yscale)
+void window_content_scale_callback(GLFWwindow* Window, float xscale, float yscale)
 {
     set_interface_scale(xscale, yscale);
 }
 @endcode
 
-On platforms where pixels and screen coordinates always map 1:1, the window
+On platforms where pixels and screen coordinates always map 1:1, the Window
 will need to be resized to appear the same size when it is moved to a monitor
 with a different content scale.  To have this done automatically both when the
-window is created and when its content scale later changes, set the @ref
-GLFW_SCALE_TO_MONITOR window hint.
+Window is created and when its content scale later changes, set the @ref
+GLFW_SCALE_TO_MONITOR Window hint.
 
 
 @subsection window_sizelimits Window size limits
 
-The minimum and maximum size of the content area of a windowed mode window can
-be enforced with @ref glfwSetWindowSizeLimits.  The user may resize the window
+The minimum and maximum size of the content area of a windowed mode Window can
+be enforced with @ref glfwSetWindowSizeLimits.  The user may resize the Window
 to any size and aspect ratio within the specified limits, unless the aspect
 ratio is also set.
 
 @code
-glfwSetWindowSizeLimits(window, 200, 200, 400, 400);
+glfwSetWindowSizeLimits(Window, 200, 200, 400, 400);
 @endcode
 
 To specify only a minimum size or only a maximum one, set the other pair to
 `GLFW_DONT_CARE`.
 
 @code
-glfwSetWindowSizeLimits(window, 640, 480, GLFW_DONT_CARE, GLFW_DONT_CARE);
+glfwSetWindowSizeLimits(Window, 640, 480, GLFW_DONT_CARE, GLFW_DONT_CARE);
 @endcode
 
-To disable size limits for a window, set them all to `GLFW_DONT_CARE`.
+To disable size limits for a Window, set them all to `GLFW_DONT_CARE`.
 
-The aspect ratio of the content area of a windowed mode window can be enforced
-with @ref glfwSetWindowAspectRatio.  The user may resize the window freely
+The aspect ratio of the content area of a windowed mode Window can be enforced
+with @ref glfwSetWindowAspectRatio.  The user may resize the Window freely
 unless size limits are also set, but the size will be constrained to maintain
 the aspect ratio.
 
 @code
-glfwSetWindowAspectRatio(window, 16, 9);
+glfwSetWindowAspectRatio(Window, 16, 9);
 @endcode
 
 The aspect ratio is specified as a numerator and denominator, corresponding to
-the width and height, respectively.  If you want a window to maintain its
+the width and height, respectively.  If you want a Window to maintain its
 current aspect ratio, use its current size as the ratio.
 
 @code
 int width, height;
-glfwGetWindowSize(window, &width, &height);
-glfwSetWindowAspectRatio(window, width, height);
+glfwGetWindowSize(Window, &width, &height);
+glfwSetWindowAspectRatio(Window, width, height);
 @endcode
 
-To disable the aspect ratio limit for a window, set both terms to
+To disable the aspect ratio limit for a Window, set both terms to
 `GLFW_DONT_CARE`.
 
-You can have both size limits and aspect ratio set for a window, but the results
+You can have both size limits and aspect ratio set for a Window, but the results
 are undefined if they conflict.
 
 
 @subsection window_pos Window position
 
-By default, the window manager chooses the position of new windowed mode
+By default, the Window manager chooses the position of new windowed mode
 windows, based on its size and which monitor the user appears to be working on.
-This is most often the right choice.  If you need to create a window at
+This is most often the right choice.  If you need to create a Window at
 a specific position, you can set the desired position with the @ref
-GLFW_POSITION_X and @ref GLFW_POSITION_Y window hints.
+GLFW_POSITION_X and @ref GLFW_POSITION_Y Window hints.
 
 @code
 glfwWindowHint(GLFW_POSITION_X, 70);
@@ -822,37 +822,37 @@ glfwWindowHint(GLFW_POSITION_Y, 83);
 
 To restore the previous behavior, set these hints to `GLFW_ANY_POSITION`.
 
-The position of a windowed mode window can be changed with @ref
-glfwSetWindowPos.  This moves the window so that the upper-left corner of its
+The position of a windowed mode Window can be changed with @ref
+glfwSetWindowPos.  This moves the Window so that the upper-left corner of its
 content area has the specified [screen coordinates](@ref coordinate_systems).
-The window system may put limitations on window placement.
+The Window system may put limitations on Window placement.
 
 @code
-glfwSetWindowPos(window, 100, 100);
+glfwSetWindowPos(Window, 100, 100);
 @endcode
 
-If you wish to be notified when a window is moved, whether by the user, the
+If you wish to be notified when a Window is moved, whether by the user, the
 system or your own code, set a position callback.
 
 @code
-glfwSetWindowPosCallback(window, window_pos_callback);
+glfwSetWindowPosCallback(Window, window_pos_callback);
 @endcode
 
 The callback function receives the new position, in screen coordinates, of the
-upper-left corner of the content area when the window is moved.
+upper-left corner of the content area when the Window is moved.
 
 @code
-void window_pos_callback(GLFWwindow* window, int xpos, int ypos)
+void window_pos_callback(GLFWwindow* Window, int xpos, int ypos)
 {
 }
 @endcode
 
 There is also @ref glfwGetWindowPos for directly retrieving the current position
-of the content area of the window.
+of the content area of the Window.
 
 @code
 int xpos, ypos;
-glfwGetWindowPos(window, &xpos, &ypos);
+glfwGetWindowPos(Window, &xpos, &ypos);
 @endcode
 
 
@@ -860,10 +860,10 @@ glfwGetWindowPos(window, &xpos, &ypos);
 
 All GLFW windows have a title, although undecorated or full screen windows may
 not display it or only display it in a task bar or similar interface.  You can
-set a UTF-8 encoded window title with @ref glfwSetWindowTitle.
+set a UTF-8 encoded Window title with @ref glfwSetWindowTitle.
 
 @code
-glfwSetWindowTitle(window, "My Window");
+glfwSetWindowTitle(Window, "My Window");
 @endcode
 
 The specified string is copied before the function returns, so there is no need
@@ -873,13 +873,13 @@ As long as your source file is encoded as UTF-8, you can use any Unicode
 characters directly in the source.
 
 @code
-glfwSetWindowTitle(window, "ラストエグザイル");
+glfwSetWindowTitle(Window, "ラストエグザイル");
 @endcode
 
 If you are using C++11 or C11, you can use a UTF-8 string literal.
 
 @code
-glfwSetWindowTitle(window, u8"This is always a UTF-8 string");
+glfwSetWindowTitle(Window, u8"This is always a UTF-8 string");
 @endcode
 
 
@@ -893,17 +893,17 @@ GLFWimage images[2];
 images[0] = load_icon("my_icon.png");
 images[1] = load_icon("my_icon_small.png");
 
-glfwSetWindowIcon(window, 2, images);
+glfwSetWindowIcon(Window, 2, images);
 @endcode
 
 The image data is 32-bit, little-endian, non-premultiplied RGBA, i.e. eight bits
 per channel with the red channel first.  The pixels are arranged canonically as
 sequential rows, starting from the top-left corner.
 
-To revert to the default window icon, pass in an empty image array.
+To revert to the default Window icon, pass in an empty image array.
 
 @code
-glfwSetWindowIcon(window, 0, NULL);
+glfwSetWindowIcon(Window, 0, NULL);
 @endcode
 
 
@@ -913,7 +913,7 @@ Full screen windows are associated with a specific monitor.  You can get the
 handle for this monitor with @ref glfwGetWindowMonitor.
 
 @code
-GLFWmonitor* monitor = glfwGetWindowMonitor(window);
+GLFWmonitor* monitor = glfwGetWindowMonitor(Window);
 @endcode
 
 This monitor handle is one of those returned by @ref glfwGetMonitors.
@@ -922,25 +922,25 @@ For windowed mode windows, this function returns `NULL`.  This is how to tell
 full screen windows from windowed mode windows.
 
 You can move windows between monitors or between full screen and windowed mode
-with @ref glfwSetWindowMonitor.  When making a window full screen on the same or
+with @ref glfwSetWindowMonitor.  When making a Window full screen on the same or
 on a different monitor, specify the desired monitor, resolution and refresh
 rate.  The position arguments are ignored.
 
 @code
 const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 
-glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+glfwSetWindowMonitor(Window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
 @endcode
 
-When making the window windowed, specify the desired position and size.  The
+When making the Window windowed, specify the desired position and size.  The
 refresh rate argument is ignored.
 
 @code
-glfwSetWindowMonitor(window, NULL, xpos, ypos, width, height, 0);
+glfwSetWindowMonitor(Window, NULL, xpos, ypos, width, height, 0);
 @endcode
 
-This restores any previous window settings such as whether it is decorated,
-floating, resizable, has size or aspect ratio limits, etc..  To restore a window
+This restores any previous Window settings such as whether it is decorated,
+floating, resizable, has size or aspect ratio limits, etc..  To restore a Window
 that was originally windowed to its original size and position, save these
 before making it full screen and then pass them in as above.
 
@@ -950,41 +950,41 @@ before making it full screen and then pass them in as above.
 Windows can be iconified (i.e. minimized) with @ref glfwIconifyWindow.
 
 @code
-glfwIconifyWindow(window);
+glfwIconifyWindow(Window);
 @endcode
 
-When a full screen window is iconified, the original video mode of its monitor
-is restored until the user or application restores the window.
+When a full screen Window is iconified, the original video mode of its monitor
+is restored until the user or application restores the Window.
 
 Iconified windows can be restored with @ref glfwRestoreWindow.  This function
 also restores windows from maximization.
 
 @code
-glfwRestoreWindow(window);
+glfwRestoreWindow(Window);
 @endcode
 
-When a full screen window is restored, the desired video mode is restored to its
+When a full screen Window is restored, the desired video mode is restored to its
 monitor as well.
 
-If you wish to be notified when a window is iconified or restored, whether by
+If you wish to be notified when a Window is iconified or restored, whether by
 the user, system or your own code, set an iconify callback.
 
 @code
-glfwSetWindowIconifyCallback(window, window_iconify_callback);
+glfwSetWindowIconifyCallback(Window, window_iconify_callback);
 @endcode
 
-The callback function receives changes in the iconification state of the window.
+The callback function receives changes in the iconification state of the Window.
 
 @code
-void window_iconify_callback(GLFWwindow* window, int iconified)
+void window_iconify_callback(GLFWwindow* Window, int iconified)
 {
     if (iconified)
     {
-        // The window was iconified
+        // The Window was iconified
     }
     else
     {
-        // The window was restored
+        // The Window was restored
     }
 }
 @endcode
@@ -992,7 +992,7 @@ void window_iconify_callback(GLFWwindow* window, int iconified)
 You can also get the current iconification state with @ref glfwGetWindowAttrib.
 
 @code
-int iconified = glfwGetWindowAttrib(window, GLFW_ICONIFIED);
+int iconified = glfwGetWindowAttrib(Window, GLFW_ICONIFIED);
 @endcode
 
 
@@ -1001,38 +1001,38 @@ int iconified = glfwGetWindowAttrib(window, GLFW_ICONIFIED);
 Windows can be maximized (i.e. zoomed) with @ref glfwMaximizeWindow.
 
 @code
-glfwMaximizeWindow(window);
+glfwMaximizeWindow(Window);
 @endcode
 
-Full screen windows cannot be maximized and passing a full screen window to this
+Full screen windows cannot be maximized and passing a full screen Window to this
 function does nothing.
 
 Maximized windows can be restored with @ref glfwRestoreWindow.  This function
 also restores windows from iconification.
 
 @code
-glfwRestoreWindow(window);
+glfwRestoreWindow(Window);
 @endcode
 
-If you wish to be notified when a window is maximized or restored, whether by
+If you wish to be notified when a Window is maximized or restored, whether by
 the user, system or your own code, set a maximize callback.
 
 @code
-glfwSetWindowMaximizeCallback(window, window_maximize_callback);
+glfwSetWindowMaximizeCallback(Window, window_maximize_callback);
 @endcode
 
-The callback function receives changes in the maximization state of the window.
+The callback function receives changes in the maximization state of the Window.
 
 @code
-void window_maximize_callback(GLFWwindow* window, int maximized)
+void window_maximize_callback(GLFWwindow* Window, int maximized)
 {
     if (maximized)
     {
-        // The window was maximized
+        // The Window was maximized
     }
     else
     {
-        // The window was restored
+        // The Window was restored
     }
 }
 @endcode
@@ -1040,12 +1040,12 @@ void window_maximize_callback(GLFWwindow* window, int maximized)
 You can also get the current maximization state with @ref glfwGetWindowAttrib.
 
 @code
-int maximized = glfwGetWindowAttrib(window, GLFW_MAXIMIZED);
+int maximized = glfwGetWindowAttrib(Window, GLFW_MAXIMIZED);
 @endcode
 
 By default, newly created windows are not maximized.  You can change this
-behavior by setting the [GLFW_MAXIMIZED](@ref GLFW_MAXIMIZED_hint) window hint
-before creating the window.
+behavior by setting the [GLFW_MAXIMIZED](@ref GLFW_MAXIMIZED_hint) Window hint
+before creating the Window.
 
 @code
 glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
@@ -1057,40 +1057,40 @@ glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 Windowed mode windows can be hidden with @ref glfwHideWindow.
 
 @code
-glfwHideWindow(window);
+glfwHideWindow(Window);
 @endcode
 
-This makes the window completely invisible to the user, including removing it
-from the task bar, dock or window list.  Full screen windows cannot be hidden
-and calling @ref glfwHideWindow on a full screen window does nothing.
+This makes the Window completely invisible to the user, including removing it
+from the task bar, dock or Window list.  Full screen windows cannot be hidden
+and calling @ref glfwHideWindow on a full screen Window does nothing.
 
 Hidden windows can be shown with @ref glfwShowWindow.
 
 @code
-glfwShowWindow(window);
+glfwShowWindow(Window);
 @endcode
 
-By default, this function will also set the input focus to that window. Set
-the [GLFW_FOCUS_ON_SHOW](@ref GLFW_FOCUS_ON_SHOW_hint) window hint to change
+By default, this function will also set the input focus to that Window. Set
+the [GLFW_FOCUS_ON_SHOW](@ref GLFW_FOCUS_ON_SHOW_hint) Window hint to change
 this behavior for all newly created windows, or change the behavior for an
-existing window with @ref glfwSetWindowAttrib.
+existing Window with @ref glfwSetWindowAttrib.
 
 You can also get the current visibility state with @ref glfwGetWindowAttrib.
 
 @code
-int visible = glfwGetWindowAttrib(window, GLFW_VISIBLE);
+int visible = glfwGetWindowAttrib(Window, GLFW_VISIBLE);
 @endcode
 
 By default, newly created windows are visible.  You can change this behavior by
-setting the [GLFW_VISIBLE](@ref GLFW_VISIBLE_hint) window hint before creating
-the window.
+setting the [GLFW_VISIBLE](@ref GLFW_VISIBLE_hint) Window hint before creating
+the Window.
 
 @code
 glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 @endcode
 
 Windows created hidden are completely invisible to the user until shown.  This
-can be useful if you need to set up your window further before showing it, for
+can be useful if you need to set up your Window further before showing it, for
 example moving it to a specific location.
 
 
@@ -1100,32 +1100,32 @@ Windows can be given input focus and brought to the front with @ref
 glfwFocusWindow.
 
 @code
-glfwFocusWindow(window);
+glfwFocusWindow(Window);
 @endcode
 
-Keep in mind that it can be very disruptive to the user when a window is forced
+Keep in mind that it can be very disruptive to the user when a Window is forced
 to the top.  For a less disruptive way of getting the user's attention, see
 [attention requests](@ref window_attention).
 
-If you wish to be notified when a window gains or loses input focus, whether by
+If you wish to be notified when a Window gains or loses input focus, whether by
 the user, system or your own code, set a focus callback.
 
 @code
-glfwSetWindowFocusCallback(window, window_focus_callback);
+glfwSetWindowFocusCallback(Window, window_focus_callback);
 @endcode
 
-The callback function receives changes in the input focus state of the window.
+The callback function receives changes in the input focus state of the Window.
 
 @code
-void window_focus_callback(GLFWwindow* window, int focused)
+void window_focus_callback(GLFWwindow* Window, int focused)
 {
     if (focused)
     {
-        // The window gained input focus
+        // The Window gained input focus
     }
     else
     {
-        // The window lost input focus
+        // The Window lost input focus
     }
 }
 @endcode
@@ -1133,12 +1133,12 @@ void window_focus_callback(GLFWwindow* window, int focused)
 You can also get the current input focus state with @ref glfwGetWindowAttrib.
 
 @code
-int focused = glfwGetWindowAttrib(window, GLFW_FOCUSED);
+int focused = glfwGetWindowAttrib(Window, GLFW_FOCUSED);
 @endcode
 
 By default, newly created windows are given input focus.  You can change this
-behavior by setting the [GLFW_FOCUSED](@ref GLFW_FOCUSED_hint) window hint
-before creating the window.
+behavior by setting the [GLFW_FOCUSED](@ref GLFW_FOCUSED_hint) Window hint
+before creating the Window.
 
 @code
 glfwWindowHint(GLFW_FOCUSED, GLFW_FALSE);
@@ -1151,101 +1151,101 @@ If you wish to notify the user of an event without interrupting, you can request
 attention with @ref glfwRequestWindowAttention.
 
 @code
-glfwRequestWindowAttention(window);
+glfwRequestWindowAttention(Window);
 @endcode
 
-The system will highlight the specified window, or on platforms where this is
+The system will highlight the specified Window, or on platforms where this is
 not supported, the application as a whole.  Once the user has given it
 attention, the system will automatically end the request.
 
 
 @subsection window_refresh Window damage and refresh
 
-If you wish to be notified when the contents of a window is damaged and needs
-to be refreshed, set a window refresh callback.
+If you wish to be notified when the contents of a Window is damaged and needs
+to be refreshed, set a Window refresh callback.
 
 @code
 glfwSetWindowRefreshCallback(m_handle, window_refresh_callback);
 @endcode
 
-The callback function is called when the contents of the window needs to be
+The callback function is called when the contents of the Window needs to be
 refreshed.
 
 @code
-void window_refresh_callback(GLFWwindow* window)
+void window_refresh_callback(GLFWwindow* Window)
 {
-    draw_editor_ui(window);
-    glfwSwapBuffers(window);
+    draw_editor_ui(Window);
+    glfwSwapBuffers(Window);
 }
 @endcode
 
-@note On compositing window systems such as Aero, Compiz or Aqua, where the
-window contents are saved off-screen, this callback might only be called when
-the window or framebuffer is resized.
+@note On compositing Window systems such as Aero, Compiz or Aqua, where the
+Window contents are saved off-screen, this callback might only be called when
+the Window or framebuffer is resized.
 
 
 @subsection window_transparency Window transparency
 
 GLFW supports two kinds of transparency for windows; framebuffer transparency
-and whole window transparency.  A single window may not use both methods.  The
+and whole Window transparency.  A single Window may not use both methods.  The
 results of doing this are undefined.
 
 Both methods require the platform to support it and not every version of every
 platform GLFW supports does this, so there are mechanisms to check whether the
-window really is transparent.
+Window really is transparent.
 
 Window framebuffers can be made transparent on a per-pixel per-frame basis with
 the [GLFW_TRANSPARENT_FRAMEBUFFER](@ref GLFW_TRANSPARENT_FRAMEBUFFER_hint)
-window hint.
+Window hint.
 
 @code
 glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
 @endcode
 
-If supported by the system, the window content area will be composited with the
+If supported by the system, the Window content area will be composited with the
 background using the framebuffer per-pixel alpha channel.  This requires desktop
-compositing to be enabled on the system.  It does not affect window decorations.
+compositing to be enabled on the system.  It does not affect Window decorations.
 
-You can check whether the window framebuffer was successfully made transparent
+You can check whether the Window framebuffer was successfully made transparent
 with the
 [GLFW_TRANSPARENT_FRAMEBUFFER](@ref GLFW_TRANSPARENT_FRAMEBUFFER_attrib)
-window attribute.
+Window attribute.
 
 @code
-if (glfwGetWindowAttrib(window, GLFW_TRANSPARENT_FRAMEBUFFER))
+if (glfwGetWindowAttrib(Window, GLFW_TRANSPARENT_FRAMEBUFFER))
 {
-    // window framebuffer is currently transparent
+    // Window framebuffer is currently transparent
 }
 @endcode
 
 GLFW comes with an example that enabled framebuffer transparency called `gears`.
 
-The opacity of the whole window, including any decorations, can be set with @ref
+The opacity of the whole Window, including any decorations, can be set with @ref
 glfwSetWindowOpacity.
 
 @code
-glfwSetWindowOpacity(window, 0.5f);
+glfwSetWindowOpacity(Window, 0.5f);
 @endcode
 
 The opacity (or alpha) value is a positive finite number between zero and one,
 where 0 (zero) is fully transparent and 1 (one) is fully opaque.  The initial
 opacity value for newly created windows is 1.
 
-The current opacity of a window can be queried with @ref glfwGetWindowOpacity.
+The current opacity of a Window can be queried with @ref glfwGetWindowOpacity.
 
 @code
-float opacity = glfwGetWindowOpacity(window);
+float opacity = glfwGetWindowOpacity(Window);
 @endcode
 
-If the system does not support whole window transparency, this function always
+If the system does not support whole Window transparency, this function always
 returns one.
 
-GLFW comes with a test program that lets you control whole window transparency
-at run-time called `window`.
+GLFW comes with a test program that lets you control whole Window transparency
+at run-time called `Window`.
 
 If you want to use either of these transparency methods to display a temporary
 overlay like for example a notification, the @ref GLFW_FLOATING and @ref
-GLFW_MOUSE_PASSTHROUGH window hints and attributes may be useful.
+GLFW_MOUSE_PASSTHROUGH Window hints and attributes may be useful.
 
 
 @subsection window_attribs Window attributes
@@ -1253,13 +1253,13 @@ GLFW_MOUSE_PASSTHROUGH window hints and attributes may be useful.
 Windows have a number of attributes that can be returned using @ref
 glfwGetWindowAttrib.  Some reflect state that may change as a result of user
 interaction, (e.g. whether it has input focus), while others reflect inherent
-properties of the window (e.g. what kind of border it has).  Some are related to
-the window and others to its OpenGL or OpenGL ES context.
+properties of the Window (e.g. what kind of border it has).  Some are related to
+the Window and others to its OpenGL or OpenGL ES context.
 
 @code
-if (glfwGetWindowAttrib(window, GLFW_FOCUSED))
+if (glfwGetWindowAttrib(Window, GLFW_FOCUSED))
 {
-    // window has input focus
+    // Window has input focus
 }
 @endcode
 
@@ -1267,11 +1267,11 @@ The [GLFW_DECORATED](@ref GLFW_DECORATED_attrib),
 [GLFW_RESIZABLE](@ref GLFW_RESIZABLE_attrib),
 [GLFW_FLOATING](@ref GLFW_FLOATING_attrib),
 [GLFW_AUTO_ICONIFY](@ref GLFW_AUTO_ICONIFY_attrib) and
-[GLFW_FOCUS_ON_SHOW](@ref GLFW_FOCUS_ON_SHOW_attrib) window attributes can be
+[GLFW_FOCUS_ON_SHOW](@ref GLFW_FOCUS_ON_SHOW_attrib) Window attributes can be
 changed with @ref glfwSetWindowAttrib.
 
 @code
-glfwSetWindowAttrib(window, GLFW_RESIZABLE, GLFW_FALSE);
+glfwSetWindowAttrib(Window, GLFW_RESIZABLE, GLFW_FALSE);
 @endcode
 
 
@@ -1279,67 +1279,67 @@ glfwSetWindowAttrib(window, GLFW_RESIZABLE, GLFW_FALSE);
 @subsubsection window_attribs_wnd Window related attributes
 
 @anchor GLFW_FOCUSED_attrib
-__GLFW_FOCUSED__ indicates whether the specified window has input focus.  See
+__GLFW_FOCUSED__ indicates whether the specified Window has input focus.  See
 @ref window_focus for details.
 
 @anchor GLFW_ICONIFIED_attrib
-__GLFW_ICONIFIED__ indicates whether the specified window is iconified.
+__GLFW_ICONIFIED__ indicates whether the specified Window is iconified.
 See @ref window_iconify for details.
 
 @anchor GLFW_MAXIMIZED_attrib
-__GLFW_MAXIMIZED__ indicates whether the specified window is maximized.  See
+__GLFW_MAXIMIZED__ indicates whether the specified Window is maximized.  See
 @ref window_maximize for details.
 
 @anchor GLFW_HOVERED_attrib
 __GLFW_HOVERED__ indicates whether the cursor is currently directly over the
-content area of the window, with no other windows between.  See @ref
+content area of the Window, with no other windows between.  See @ref
 cursor_enter for details.
 
 @anchor GLFW_VISIBLE_attrib
-__GLFW_VISIBLE__ indicates whether the specified window is visible.  See @ref
+__GLFW_VISIBLE__ indicates whether the specified Window is visible.  See @ref
 window_hide for details.
 
 @anchor GLFW_RESIZABLE_attrib
-__GLFW_RESIZABLE__ indicates whether the specified window is resizable _by the
+__GLFW_RESIZABLE__ indicates whether the specified Window is resizable _by the
 user_.  This can be set before creation with the
-[GLFW_RESIZABLE](@ref GLFW_RESIZABLE_hint) window hint or after with @ref
+[GLFW_RESIZABLE](@ref GLFW_RESIZABLE_hint) Window hint or after with @ref
 glfwSetWindowAttrib.
 
 @anchor GLFW_DECORATED_attrib
-__GLFW_DECORATED__ indicates whether the specified window has decorations such
+__GLFW_DECORATED__ indicates whether the specified Window has decorations such
 as a border, a close widget, etc.  This can be set before creation with the
-[GLFW_DECORATED](@ref GLFW_DECORATED_hint) window hint or after with @ref
+[GLFW_DECORATED](@ref GLFW_DECORATED_hint) Window hint or after with @ref
 glfwSetWindowAttrib.
 
 @anchor GLFW_AUTO_ICONIFY_attrib
-__GLFW_AUTO_ICONIFY__ indicates whether the specified full screen window is
+__GLFW_AUTO_ICONIFY__ indicates whether the specified full screen Window is
 iconified on focus loss, a close widget, etc.  This can be set before creation
-with the [GLFW_AUTO_ICONIFY](@ref GLFW_AUTO_ICONIFY_hint) window hint or after
+with the [GLFW_AUTO_ICONIFY](@ref GLFW_AUTO_ICONIFY_hint) Window hint or after
 with @ref glfwSetWindowAttrib.
 
 @anchor GLFW_FLOATING_attrib
-__GLFW_FLOATING__ indicates whether the specified window is floating, also
+__GLFW_FLOATING__ indicates whether the specified Window is floating, also
 called topmost or always-on-top.  This can be set before creation with the
-[GLFW_FLOATING](@ref GLFW_FLOATING_hint) window hint or after with @ref
+[GLFW_FLOATING](@ref GLFW_FLOATING_hint) Window hint or after with @ref
 glfwSetWindowAttrib.
 
 @anchor GLFW_TRANSPARENT_FRAMEBUFFER_attrib
-__GLFW_TRANSPARENT_FRAMEBUFFER__ indicates whether the specified window has
-a transparent framebuffer, i.e. the window contents is composited with the
-background using the window framebuffer alpha channel.  See @ref
+__GLFW_TRANSPARENT_FRAMEBUFFER__ indicates whether the specified Window has
+a transparent framebuffer, i.e. the Window contents is composited with the
+background using the Window framebuffer alpha channel.  See @ref
 window_transparency for details.
 
 @anchor GLFW_FOCUS_ON_SHOW_attrib
-__GLFW_FOCUS_ON_SHOW__ specifies whether the window will be given input
+__GLFW_FOCUS_ON_SHOW__ specifies whether the Window will be given input
 focus when @ref glfwShowWindow is called. This can be set before creation
-with the [GLFW_FOCUS_ON_SHOW](@ref GLFW_FOCUS_ON_SHOW_hint) window hint or
+with the [GLFW_FOCUS_ON_SHOW](@ref GLFW_FOCUS_ON_SHOW_hint) Window hint or
 after with @ref glfwSetWindowAttrib.
 
 @anchor GLFW_MOUSE_PASSTHROUGH_attrib
-__GLFW_MOUSE_PASSTHROUGH__ specifies whether the window is transparent to mouse
-input, letting any mouse events pass through to whatever window is behind it.
+__GLFW_MOUSE_PASSTHROUGH__ specifies whether the Window is transparent to mouse
+input, letting any mouse events pass through to whatever Window is behind it.
 This can be set before creation with the
-[GLFW_MOUSE_PASSTHROUGH](@ref GLFW_MOUSE_PASSTHROUGH_hint) window hint or after
+[GLFW_MOUSE_PASSTHROUGH](@ref GLFW_MOUSE_PASSTHROUGH_hint) Window hint or after
 with @ref glfwSetWindowAttrib.  This is only supported for undecorated windows.
 Decorated windows with this enabled will behave differently between platforms.
 
@@ -1347,19 +1347,19 @@ Decorated windows with this enabled will behave differently between platforms.
 @subsubsection window_attribs_ctx Context related attributes
 
 @anchor GLFW_CLIENT_API_attrib
-__GLFW_CLIENT_API__ indicates the client API provided by the window's context;
+__GLFW_CLIENT_API__ indicates the client API provided by the Window's context;
 either `GLFW_OPENGL_API`, `GLFW_OPENGL_ES_API` or `GLFW_NO_API`.
 
 @anchor GLFW_CONTEXT_CREATION_API_attrib
 __GLFW_CONTEXT_CREATION_API__ indicates the context creation API used to create
-the window's context; either `GLFW_NATIVE_CONTEXT_API`, `GLFW_EGL_CONTEXT_API`
+the Window's context; either `GLFW_NATIVE_CONTEXT_API`, `GLFW_EGL_CONTEXT_API`
 or `GLFW_OSMESA_CONTEXT_API`.
 
 @anchor GLFW_CONTEXT_VERSION_MAJOR_attrib
 @anchor GLFW_CONTEXT_VERSION_MINOR_attrib
 @anchor GLFW_CONTEXT_REVISION_attrib
 __GLFW_CONTEXT_VERSION_MAJOR__, __GLFW_CONTEXT_VERSION_MINOR__ and
-__GLFW_CONTEXT_REVISION__ indicate the client API version of the window's
+__GLFW_CONTEXT_REVISION__ indicate the client API version of the Window's
 context.
 
 @note Do not confuse these attributes with `GLFW_VERSION_MAJOR`,
@@ -1367,12 +1367,12 @@ context.
 of the GLFW header.
 
 @anchor GLFW_OPENGL_FORWARD_COMPAT_attrib
-__GLFW_OPENGL_FORWARD_COMPAT__ is `GLFW_TRUE` if the window's context is an
+__GLFW_OPENGL_FORWARD_COMPAT__ is `GLFW_TRUE` if the Window's context is an
 OpenGL forward-compatible one, or `GLFW_FALSE` otherwise.
 
 @anchor GLFW_CONTEXT_DEBUG_attrib
 @anchor GLFW_OPENGL_DEBUG_CONTEXT_attrib
-__GLFW_CONTEXT_DEBUG__ is `GLFW_TRUE` if the window's context is in debug
+__GLFW_CONTEXT_DEBUG__ is `GLFW_TRUE` if the Window's context is in debug
 mode, or `GLFW_FALSE` otherwise.
 
 @par
@@ -1405,13 +1405,13 @@ would have generated errors instead cause undefined behavior.
 @anchor GLFW_CONTEXT_ROBUSTNESS_attrib
 __GLFW_CONTEXT_ROBUSTNESS__ indicates the robustness strategy used by the
 context.  This is `GLFW_LOSE_CONTEXT_ON_RESET` or `GLFW_NO_RESET_NOTIFICATION`
-if the window's context supports robustness, or `GLFW_NO_ROBUSTNESS` otherwise.
+if the Window's context supports robustness, or `GLFW_NO_ROBUSTNESS` otherwise.
 
 
 @subsubsection window_attribs_fb Framebuffer related attributes
 
 GLFW does not expose most attributes of the default framebuffer (i.e. the
-framebuffer attached to the window) as these can be queried directly with either
+framebuffer attached to the Window) as these can be queried directly with either
 OpenGL, OpenGL ES or Vulkan.  The one exception is
 [GLFW_DOUBLEBUFFER](@ref GLFW_DOUBLEBUFFER_attrib), as this is not provided by
 OpenGL ES.
@@ -1441,9 +1441,9 @@ sizes are queried from the `GL_DEPTH` and `GL_STENCIL` attachments,
 respectively.
 
 @anchor GLFW_DOUBLEBUFFER_attrib
-__GLFW_DOUBLEBUFFER__ indicates whether the specified window is double-buffered
+__GLFW_DOUBLEBUFFER__ indicates whether the specified Window is double-buffered
 when rendering with OpenGL or OpenGL ES.  This can be set before creation with
-the [GLFW_DOUBLEBUFFER](@ref GLFW_DOUBLEBUFFER_hint) window hint.
+the [GLFW_DOUBLEBUFFER](@ref GLFW_DOUBLEBUFFER_hint) Window hint.
 
 
 @section buffer_swap Buffer swapping
@@ -1457,7 +1457,7 @@ front buffers in order to display what has been rendered and begin rendering
 a new frame.  This is done with @ref glfwSwapBuffers.
 
 @code
-glfwSwapBuffers(window);
+glfwSwapBuffers(Window);
 @endcode
 
 Sometimes it can be useful to select when the buffer swap will occur.  With the

@@ -19,8 +19,8 @@ be considered a breaking API change.
 
 As GLFW uses Xlib directly, without any intervening toolkit
 library, it has sole responsibility for interacting well with the many and
-varied window managers in use on Unix-like systems.  In order for applications
-and window managers to work well together, a number of standards and
+varied Window managers in use on Unix-like systems.  In order for applications
+and Window managers to work well together, a number of standards and
 conventions have been developed that regulate behavior outside the scope of the
 X11 API; most importantly the
 [Inter-Client Communication Conventions Manual](https://www.tronche.com/gui/x/icccm/)
@@ -28,35 +28,35 @@ X11 API; most importantly the
 [Extended Window Manager Hints](https://standards.freedesktop.org/wm-spec/wm-spec-latest.html)
 (EWMH) standards.
 
-GLFW uses the `_MOTIF_WM_HINTS` window property to support borderless windows.
-If the running window manager does not support this property, the
+GLFW uses the `_MOTIF_WM_HINTS` Window property to support borderless windows.
+If the running Window manager does not support this property, the
 `GLFW_DECORATED` hint will have no effect.
 
 GLFW uses the ICCCM `WM_DELETE_WINDOW` protocol to intercept the user
-attempting to close the GLFW window.  If the running window manager does not
+attempting to close the GLFW Window.  If the running Window manager does not
 support this protocol, the close callback will never be called.
 
-GLFW uses the EWMH `_NET_WM_PING` protocol, allowing the window manager notify
+GLFW uses the EWMH `_NET_WM_PING` protocol, allowing the Window manager notify
 the user when the application has stopped responding, i.e. when it has ceased to
-process events.  If the running window manager does not support this protocol,
+process events.  If the running Window manager does not support this protocol,
 the user will not be notified if the application locks up.
 
-GLFW uses the EWMH `_NET_WM_STATE_FULLSCREEN` window state to tell the window
-manager to make the GLFW window full screen.  If the running window manager does
+GLFW uses the EWMH `_NET_WM_STATE_FULLSCREEN` Window state to tell the Window
+manager to make the GLFW Window full screen.  If the running Window manager does
 not support this state, full screen windows may not work properly.  GLFW has
-a fallback code path in case this state is unavailable, but every window manager
+a fallback code path in case this state is unavailable, but every Window manager
 behaves slightly differently in this regard.
 
-GLFW uses the EWMH `_NET_WM_BYPASS_COMPOSITOR` window property to tell a
-compositing window manager to un-redirect full screen GLFW windows.  If the
-running window manager uses compositing but does not support this property then
+GLFW uses the EWMH `_NET_WM_BYPASS_COMPOSITOR` Window property to tell a
+compositing Window manager to un-redirect full screen GLFW windows.  If the
+running Window manager uses compositing but does not support this property then
 additional copying may be performed for each buffer swap of full screen windows.
 
 GLFW uses the
 [clipboard manager protocol](https://www.freedesktop.org/wiki/ClipboardManager/)
-to push a clipboard string (i.e. selection) owned by a GLFW window about to be
+to push a clipboard string (i.e. selection) owned by a GLFW Window about to be
 destroyed to the clipboard manager.  If there is no running clipboard manager,
-the clipboard string will be unavailable once the window has been destroyed.
+the clipboard string will be unavailable once the Window has been destroyed.
 
 GLFW uses the
 [X drag-and-drop protocol](https://www.freedesktop.org/wiki/Specifications/XDND/)
@@ -81,7 +81,7 @@ when the cursor is disabled.  If the running X server does not support this
 extension, regular accelerated mouse motion will be used.
 
 GLFW uses both the XRender extension and the compositing manager to support
-transparent window framebuffers.  If the running X server does not support this
+transparent Window framebuffers.  If the running X server does not support this
 extension or there is no running compositing manager, the
 `GLFW_TRANSPARENT_FRAMEBUFFER` framebuffer hint will have no effect.
 
@@ -109,8 +109,8 @@ versions are not supported.
 
 GLFW uses the [xdg-shell
 protocol](https://cgit.freedesktop.org/wayland/wayland-protocols/tree/stable/xdg-shell/xdg-shell.xml)
-to provide better window management.  This protocol is part of
-wayland-protocols 1.12, and is mandatory for GLFW to display a window.
+to provide better Window management.  This protocol is part of
+wayland-protocols 1.12, and is mandatory for GLFW to display a Window.
 
 GLFW uses the [relative pointer
 protocol](https://cgit.freedesktop.org/wayland/wayland-protocols/tree/unstable/relative-pointer/relative-pointer-unstable-v1.xml)
@@ -129,11 +129,11 @@ does not support this protocol, the screensaver may start even for full screen
 windows.
 
 GLFW uses the [libdecor library](https://gitlab.freedesktop.org/libdecor/libdecor)
-for window decorations, where available.  This in turn provides good quality
+for Window decorations, where available.  This in turn provides good quality
 client-side decorations (drawn by the application) on desktop systems that do
-not support server-side decorations (drawn by the window manager).  On systems
-that do not provide either libdecor or xdg-decoration, very basic window
-decorations are provided.  These do not include the window title or any caption
+not support server-side decorations (drawn by the Window manager).  On systems
+that do not provide either libdecor or xdg-decoration, very basic Window
+decorations are provided.  These do not include the Window title or any caption
 buttons.
 
 GLFW uses the [xdg-decoration
@@ -270,23 +270,23 @@ all supported platforms.
 
 GLFW uses the `VK_KHR_surface` and `VK_KHR_win32_surface` extensions to create
 surfaces on Microsoft Windows.  If any of these extensions are not available,
-@ref glfwGetRequiredInstanceExtensions will return an empty list and window
+@ref glfwGetRequiredInstanceExtensions will return an empty list and Window
 surface creation will fail.
 
 GLFW uses the `VK_KHR_surface` and either the `VK_MVK_macos_surface` or
 `VK_EXT_metal_surface` extensions to create surfaces on macOS.  If any of these
 extensions are not available, @ref glfwGetRequiredInstanceExtensions will
-return an empty list and window surface creation will fail.
+return an empty list and Window surface creation will fail.
 
 GLFW uses the `VK_KHR_surface` and either the `VK_KHR_xlib_surface` or
 `VK_KHR_xcb_surface` extensions to create surfaces on X11.  If `VK_KHR_surface`
 or both `VK_KHR_xlib_surface` and `VK_KHR_xcb_surface` are not available, @ref
-glfwGetRequiredInstanceExtensions will return an empty list and window surface
+glfwGetRequiredInstanceExtensions will return an empty list and Window surface
 creation will fail.
 
 GLFW uses the `VK_KHR_surface` and `VK_KHR_wayland_surface` extensions to create
 surfaces on Wayland.  If any of these extensions are not available, @ref
-glfwGetRequiredInstanceExtensions will return an empty list and window surface
+glfwGetRequiredInstanceExtensions will return an empty list and Window surface
 creation will fail.
 
 */

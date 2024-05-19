@@ -31,16 +31,16 @@ your development environment.  See [option macros](@ref build_macros) below for
 how to select OpenGL ES headers and more.
 
 The GLFW header also defines any platform-specific macros needed by your OpenGL
-header, so that it can be included without needing any window system headers.
+header, so that it can be included without needing any Window system headers.
 
-It does this only when needed, so if window system headers are included, the
+It does this only when needed, so if Window system headers are included, the
 GLFW header does not try to redefine those symbols.  The reverse is not true,
 i.e. `windows.h` cannot cope if any Win32 symbols have already been defined.
 
 In other words:
 
  - Use the GLFW header to include OpenGL or OpenGL ES headers portably
- - Do not include window system headers unless you will use those APIs directly
+ - Do not include Window system headers unless you will use those APIs directly
  - If you do need such headers, include them before the GLFW header
 
 If you are using an OpenGL extension loading library such as

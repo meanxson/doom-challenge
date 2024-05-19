@@ -17,19 +17,19 @@ context.  There are also guides for the other areas of the GLFW API.
 
 @section context_object Context objects
 
-A window object encapsulates both a top-level window and an OpenGL or OpenGL ES
+A Window object encapsulates both a top-level Window and an OpenGL or OpenGL ES
 context.  It is created with @ref glfwCreateWindow and destroyed with @ref
 glfwDestroyWindow or @ref glfwTerminate.  See @ref window_creation for more
 information.
 
-As the window and context are inseparably linked, the window object also serves
+As the Window and context are inseparably linked, the Window object also serves
 as the context handle.
 
 To test the creation of various kinds of contexts and see their properties, run
 the `glfwinfo` test program.
 
 @note Vulkan does not have a context and the Vulkan instance is created via the
-Vulkan API itself.  If you will be using Vulkan to render to a window, disable
+Vulkan API itself.  If you will be using Vulkan to render to a Window, disable
 context creation by setting the [GLFW_CLIENT_API](@ref GLFW_CLIENT_API_hint)
 hint to `GLFW_NO_API`.  For more information, see the @ref vulkan_guide.
 
@@ -38,13 +38,13 @@ hint to `GLFW_NO_API`.  For more information, see the @ref vulkan_guide.
 
 There are a number of hints, specified using @ref glfwWindowHint, related to
 what kind of context is created.  See
-[context related hints](@ref window_hints_ctx) in the window guide.
+[context related hints](@ref window_hints_ctx) in the Window guide.
 
 
 @subsection context_sharing Context object sharing
 
-When creating a window and its OpenGL or OpenGL ES context with @ref
-glfwCreateWindow, you can specify another window whose context the new one
+When creating a Window and its OpenGL or OpenGL ES context with @ref
+glfwCreateWindow, you can specify another Window whose context the new one
 should share its objects (textures, vertex and element buffers, etc.) with.
 
 @code
@@ -66,9 +66,9 @@ GLFW comes with a bare-bones object sharing example program called `sharing`.
 
 @subsection context_offscreen Offscreen contexts
 
-GLFW doesn't support creating contexts without an associated window.  However,
+GLFW doesn't support creating contexts without an associated Window.  However,
 contexts with hidden windows can be created with the
-[GLFW_VISIBLE](@ref GLFW_VISIBLE_hint) window hint.
+[GLFW_VISIBLE](@ref GLFW_VISIBLE_hint) Window hint.
 
 @code
 glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
@@ -76,13 +76,13 @@ glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 GLFWwindow* offscreen_context = glfwCreateWindow(640, 480, "", NULL, NULL);
 @endcode
 
-The window never needs to be shown and its context can be used as a plain
-offscreen context.  Depending on the window manager, the size of a hidden
-window's framebuffer may not be usable or modifiable, so framebuffer
+The Window never needs to be shown and its context can be used as a plain
+offscreen context.  Depending on the Window manager, the size of a hidden
+Window's framebuffer may not be usable or modifiable, so framebuffer
 objects are recommended for rendering with such contexts.
 
 You should still [process events](@ref events) as long as you have at least one
-window, even if none of them are visible.
+Window, even if none of them are visible.
 
 
 @subsection context_less Windows without contexts
@@ -102,16 +102,16 @@ at a time, and a thread can only have a single context current at a time.
 When moving a context between threads, you must make it non-current on the old
 thread before making it current on the new one.
 
-The context of a window is made current with @ref glfwMakeContextCurrent.
+The context of a Window is made current with @ref glfwMakeContextCurrent.
 
 @code
-glfwMakeContextCurrent(window);
+glfwMakeContextCurrent(Window);
 @endcode
 
-The window of the current context is returned by @ref glfwGetCurrentContext.
+The Window of the current context is returned by @ref glfwGetCurrentContext.
 
 @code
-GLFWwindow* window = glfwGetCurrentContext();
+GLFWwindow* Window = glfwGetCurrentContext();
 @endcode
 
 The following GLFW functions require a context to be current.  Calling any these
@@ -125,7 +125,7 @@ error.
 
 @section context_swap Buffer swapping
 
-See @ref buffer_swap in the window guide.
+See @ref buffer_swap in the Window guide.
 
 
 @section context_glext OpenGL and OpenGL ES extensions
@@ -192,13 +192,13 @@ it suppresses the development environment's OpenGL or OpenGL ES header.
 Finally, you need to initialize glad once you have a suitable current context.
 
 @code
-window = glfwCreateWindow(640, 480, "My Window", NULL, NULL);
-if (!window)
+Window = glfwCreateWindow(640, 480, "My Window", NULL, NULL);
+if (!Window)
 {
     ...
 }
 
-glfwMakeContextCurrent(window);
+glfwMakeContextCurrent(Window);
 
 gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 @endcode

@@ -37,7 +37,7 @@
 #include <windowsx.h>
 #include <shellapi.h>
 
-// Returns the window style for the specified window
+// Returns the Window style for the specified Window
 //
 static DWORD getWindowStyle(const _GLFWwindow* window)
 {
@@ -63,7 +63,7 @@ static DWORD getWindowStyle(const _GLFWwindow* window)
     return style;
 }
 
-// Returns the extended window style for the specified window
+// Returns the extended Window style for the specified Window
 //
 static DWORD getWindowExStyle(const _GLFWwindow* window)
 {
@@ -237,7 +237,7 @@ static void updateCursorImage(_GLFWwindow* window)
         SetCursor(NULL);
 }
 
-// Sets the cursor clip rect to the window content area
+// Sets the cursor clip rect to the Window content area
 //
 static void captureCursor(_GLFWwindow* window)
 {
@@ -257,7 +257,7 @@ static void releaseCursor(void)
     _glfw.win32.capturedCursorWindow = NULL;
 }
 
-// Enables WM_INPUT messages for the mouse for the specified window
+// Enables WM_INPUT messages for the mouse for the specified Window
 //
 static void enableRawMouseMotion(_GLFWwindow* window)
 {
@@ -283,7 +283,7 @@ static void disableRawMouseMotion(_GLFWwindow* window)
     }
 }
 
-// Apply disabled cursor mode to a focused window
+// Apply disabled cursor mode to a focused Window
 //
 static void disableCursor(_GLFWwindow* window)
 {
@@ -299,7 +299,7 @@ static void disableCursor(_GLFWwindow* window)
         enableRawMouseMotion(window);
 }
 
-// Exit disabled cursor mode for the specified window
+// Exit disabled cursor mode for the specified Window
 //
 static void enableCursor(_GLFWwindow* window)
 {
@@ -314,7 +314,7 @@ static void enableCursor(_GLFWwindow* window)
     updateCursorImage(window);
 }
 
-// Returns whether the cursor is in the content area of the specified window
+// Returns whether the cursor is in the content area of the specified Window
 //
 static GLFWbool cursorInContentArea(_GLFWwindow* window)
 {
@@ -334,7 +334,7 @@ static GLFWbool cursorInContentArea(_GLFWwindow* window)
     return PtInRect(&area, pos);
 }
 
-// Update native window styles to match attributes
+// Update native Window styles to match attributes
 //
 static void updateWindowStyles(const _GLFWwindow* window)
 {
@@ -363,7 +363,7 @@ static void updateWindowStyles(const _GLFWwindow* window)
                  SWP_FRAMECHANGED | SWP_NOACTIVATE | SWP_NOZORDER);
 }
 
-// Update window framebuffer transparency
+// Update Window framebuffer transparency
 //
 static void updateFramebufferTransparency(const _GLFWwindow* window)
 {
@@ -391,7 +391,7 @@ static void updateFramebufferTransparency(const _GLFWwindow* window)
     else
     {
         // HACK: Disable framebuffer transparency on Windows 7 when the
-        //       colorization color is opaque, because otherwise the window
+        //       colorization color is opaque, because otherwise the Window
         //       contents is blended additively with the previous frame instead
         //       of replacing it
         DWM_BLURBEHIND bb = {0};
@@ -434,7 +434,7 @@ static void fitToMonitor(_GLFWwindow* window)
                  SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOCOPYBITS);
 }
 
-// Make the specified window and its video mode active on its monitor
+// Make the specified Window and its video mode active on its monitor
 //
 static void acquireMonitor(_GLFWwindow* window)
 {
@@ -455,7 +455,7 @@ static void acquireMonitor(_GLFWwindow* window)
     _glfwInputMonitorWindow(window->monitor, window);
 }
 
-// Remove the window and restore the original video mode
+// Remove the Window and restore the original video mode
 //
 static void releaseMonitor(_GLFWwindow* window)
 {
@@ -475,7 +475,7 @@ static void releaseMonitor(_GLFWwindow* window)
     _glfwRestoreVideoModeWin32(window->monitor);
 }
 
-// Manually maximize the window, for when SW_MAXIMIZE cannot be used
+// Manually maximize the Window, for when SW_MAXIMIZE cannot be used
 //
 static void maximizeWindowManually(_GLFWwindow* window)
 {
@@ -555,7 +555,7 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
     {
         case WM_MOUSEACTIVATE:
         {
-            // HACK: Postpone cursor disabling when the window was activated by
+            // HACK: Postpone cursor disabling when the Window was activated by
             //       clicking a caption button
             if (HIWORD(lParam) == WM_LBUTTONDOWN)
             {
@@ -972,7 +972,7 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
                 break;
 
             // HACK: Enable the cursor while the user is moving or
-            //       resizing the window or using the window menu
+            //       resizing the Window or using the Window menu
             if (window->cursorMode == GLFW_CURSOR_DISABLED)
                 enableCursor(window);
             else if (window->cursorMode == GLFW_CURSOR_CAPTURED)
@@ -988,7 +988,7 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
                 break;
 
             // HACK: Disable the cursor once the user is done moving or
-            //       resizing the window or using the menu
+            //       resizing the Window or using the menu
             if (window->cursorMode == GLFW_CURSOR_DISABLED)
                 disableCursor(window);
             else if (window->cursorMode == GLFW_CURSOR_CAPTURED)
@@ -1046,7 +1046,7 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
                 captureCursor(window);
 
             // NOTE: This cannot use LOWORD/HIWORD recommended by MSDN, as
-            // those macros do not handle negative window positions correctly
+            // those macros do not handle negative Window positions correctly
             _glfwInputWindowPos(window,
                                 GET_X_LPARAM(lParam),
                                 GET_Y_LPARAM(lParam));
@@ -1131,7 +1131,7 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
         case WM_NCPAINT:
         {
             // Prevent title bar from being drawn after restoring a minimized
-            // undecorated window
+            // undecorated Window
             if (!window->decorated)
                 return TRUE;
 
@@ -1151,7 +1151,7 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
             if (window->win32.scaleToMonitor)
                 break;
 
-            // Adjust the window size to keep the content area size constant
+            // Adjust the Window size to keep the content area size constant
             if (_glfwIsWindows10Version1703OrGreaterWin32())
             {
                 RECT source = {0}, target = {0};
@@ -1247,7 +1247,7 @@ static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
     return DefWindowProcW(hWnd, uMsg, wParam, lParam);
 }
 
-// Creates the GLFW window
+// Creates the GLFW Window
 //
 static int createNativeWindow(_GLFWwindow* window,
                               const _GLFWwndconfig* wndconfig,
@@ -1286,7 +1286,7 @@ static int createNativeWindow(_GLFWwindow* window,
         if (!_glfw.win32.mainWindowClass)
         {
             _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                                 "Win32: Failed to register window class");
+                                 "Win32: Failed to register Window class");
             return GLFW_FALSE;
         }
     }
@@ -1296,7 +1296,7 @@ static int createNativeWindow(_GLFWwindow* window,
         MONITORINFO mi = { sizeof(mi) };
         GetMonitorInfoW(window->monitor->win32.handle, &mi);
 
-        // NOTE: This window placement is temporary and approximate, as the
+        // NOTE: This Window placement is temporary and approximate, as the
         //       correct position and size cannot be known until the monitor
         //       video mode has been picked in _glfwSetVideoModeWin32
         frameX = mi.rcMonitor.left;
@@ -1339,8 +1339,8 @@ static int createNativeWindow(_GLFWwindow* window,
                                            style,
                                            frameX, frameY,
                                            frameWidth, frameHeight,
-                                           NULL, // No parent window
-                                           NULL, // No window menu
+                                           NULL, // No parent Window
+                                           NULL, // No Window menu
                                            _glfw.win32.instance,
                                            (LPVOID) wndconfig);
 
@@ -1349,7 +1349,7 @@ static int createNativeWindow(_GLFWwindow* window,
     if (!window->win32.handle)
     {
         _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "Win32: Failed to create window");
+                             "Win32: Failed to create Window");
         return GLFW_FALSE;
     }
 
@@ -1375,10 +1375,10 @@ static int createNativeWindow(_GLFWwindow* window,
         const HMONITOR mh = MonitorFromWindow(window->win32.handle,
                                               MONITOR_DEFAULTTONEAREST);
 
-        // Adjust window rect to account for DPI scaling of the window frame and
+        // Adjust Window rect to account for DPI scaling of the Window frame and
         // (if enabled) DPI scaling of the content area
-        // This cannot be done until we know what monitor the window was placed on
-        // Only update the restored window rect as the window may be maximized
+        // This cannot be done until we know what monitor the Window was placed on
+        // Only update the restored Window rect as the Window may be maximized
 
         if (wndconfig->scaleToMonitor)
         {
@@ -1409,8 +1409,8 @@ static int createNativeWindow(_GLFWwindow* window,
         wp.showCmd = SW_HIDE;
         SetWindowPlacement(window->win32.handle, &wp);
 
-        // Adjust rect of maximized undecorated window, because by default Windows will
-        // make such a window cover the whole monitor instead of its workarea
+        // Adjust rect of maximized undecorated Window, because by default Windows will
+        // make such a Window cover the whole monitor instead of its workarea
 
         if (wndconfig->maximized && !wndconfig->decorated)
         {
@@ -1921,7 +1921,7 @@ GLFWbool _glfwFramebufferTransparentWin32(_GLFWwindow* window)
     if (!IsWindows8OrGreater())
     {
         // HACK: Disable framebuffer transparency on Windows 7 when the
-        //       colorization color is opaque, because otherwise the window
+        //       colorization color is opaque, because otherwise the Window
         //       contents is blended additively with the previous frame instead
         //       of replacing it
         if (FAILED(DwmGetColorizationColor(&color, &opaque)) || opaque)
@@ -1963,8 +1963,8 @@ void _glfwSetWindowMousePassthroughWin32(_GLFWwindow* window, GLFWbool enabled)
     else
     {
         exStyle &= ~WS_EX_TRANSPARENT;
-        // NOTE: Window opacity also needs the layered window style so do not
-        //       remove it if the window is alpha blended
+        // NOTE: Window opacity also needs the layered Window style so do not
+        //       remove it if the Window is alpha blended
         if (exStyle & WS_EX_LAYERED)
         {
             if (!(flags & LWA_ALPHA))

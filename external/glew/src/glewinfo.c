@@ -18705,7 +18705,7 @@ GLboolean glewCreateContext (struct createParams *params)
   {
     surface = createPbufferSurface(display, config, pBufferAttribs);
   }
-  /* Create a generic surface without a native window, if necessary */
+  /* Create a generic surface without a native Window, if necessary */
   if (surface==EGL_NO_SURFACE)
   {
     surface = createWindowSurface(display, config, (EGLNativeWindowType) NULL, NULL);
@@ -18764,13 +18764,13 @@ GLboolean glewCreateContext (struct createParams* params)
 {
   WNDCLASS wc;
   PIXELFORMATDESCRIPTOR pfd;
-  /* register window class */
+  /* register Window class */
   ZeroMemory(&wc, sizeof(WNDCLASS));
   wc.hInstance = GetModuleHandle(NULL);
   wc.lpfnWndProc = DefWindowProc;
   wc.lpszClassName = "GLEW";
   if (0 == RegisterClass(&wc)) return GL_TRUE;
-  /* create window */
+  /* create Window */
   wnd = CreateWindow("GLEW", "GLEW", 0, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
                      CW_USEDEFAULT, NULL, NULL, GetModuleHandle(NULL), NULL);
   if (NULL == wnd) return GL_TRUE;
@@ -18955,7 +18955,7 @@ GLboolean glewCreateContext (struct createParams *params)
   /* create context */
   ctx = glXCreateContext(dpy, vi, None, True);
   if (NULL == ctx) return GL_TRUE;
-  /* create window */
+  /* create Window */
   /*wnd = XCreateSimpleWindow(dpy, RootWindow(dpy, vi->screen), 0, 0, 1, 1, 1, 0, 0);*/
   cmap = XCreateColormap(dpy, RootWindow(dpy, vi->screen), vi->visual, AllocNone);
   swa.border_pixel = 0;

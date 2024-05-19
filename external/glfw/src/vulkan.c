@@ -208,7 +208,7 @@ const char* _glfwGetVulkanResultString(VkResult result)
         case VK_ERROR_INCOMPATIBLE_DISPLAY_KHR:
             return "The display used by a swapchain does not use the same presentable image layout";
         case VK_ERROR_NATIVE_WINDOW_IN_USE_KHR:
-            return "The requested window is already connected to a VkSurfaceKHR, or to some other non-Vulkan API";
+            return "The requested Window is already connected to a VkSurfaceKHR, or to some other non-Vulkan API";
         case VK_ERROR_VALIDATION_FAILED_EXT:
             return "A validation layer found an error";
         default:
@@ -321,7 +321,7 @@ GLFWAPI VkResult glfwCreateWindowSurface(VkInstance instance,
     if (window->context.client != GLFW_NO_API)
     {
         _glfwInputError(GLFW_INVALID_VALUE,
-                        "Vulkan: Window surface creation requires the window to have the client API set to GLFW_NO_API");
+                        "Vulkan: Window surface creation requires the Window to have the client API set to GLFW_NO_API");
         return VK_ERROR_NATIVE_WINDOW_IN_USE_KHR;
     }
 

@@ -26,7 +26,7 @@ Examples: `glfwCreateWindow`, `GLFWwindow`, `GLFW_RED_BITS`
 
 The [native interface](@ref native) is a small set of publicly available
 but platform-specific functions, described in the glfw3native.h header file and
-used to gain access to the underlying window, context and (on some platforms)
+used to gain access to the underlying Window, context and (on some platforms)
 display handles used by the platform interface.
 
 The function names of the native interface are similar to those of the public
@@ -64,15 +64,15 @@ interface when events interesting to GLFW are received.
 The platform interface mostly mirrors those parts of the public interface that needs to
 perform platform-specific operations on some or all platforms.
 
-The window system bits of the platform API is called through the `_GLFWplatform` struct of
-function pointers, to allow runtime selection of platform.  This includes the window and
+The Window system bits of the platform API is called through the `_GLFWplatform` struct of
+function pointers, to allow runtime selection of platform.  This includes the Window and
 context creation, input and event processing, monitor and Vulkan surface creation parts of
 GLFW.  This is located in the global `_glfw` struct.
 
 Examples: `_glfw.platform.createWindow`
 
 The timer, threading and module loading bits of the platform API are plain functions with
-a `_glfwPlatform` prefix, as these things are independent of what window system is being
+a `_glfwPlatform` prefix, as these things are independent of what Window system is being
 used.
 
 Examples: `_glfwPlatformGetTimerValue`
@@ -87,14 +87,14 @@ These structs are incorporated as members into the internal interface structs
 using special macros that name them after the specific interface used.  This
 prevents shared code from accidentally using these members.
 
-Examples: `window->win32.handle`, `_glfw.x11.display`
+Examples: `Window->win32.handle`, `_glfw.x11.display`
 
 
 @section internals_event Event interface
 
 The event interface is implemented in the same shared source files as the public
 interface and is responsible for delivering the events it receives to the
-application, either via callbacks, via window state changes or both.
+application, either via callbacks, via Window state changes or both.
 
 The function names of the event interface use a `_glfwInput` prefix and the
 ObjectEvent pattern.

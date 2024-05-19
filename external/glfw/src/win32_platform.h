@@ -408,7 +408,7 @@ typedef struct _GLFWlibraryWGL
     GLFWbool                            ARB_context_flush_control;
 } _GLFWlibraryWGL;
 
-// Win32-specific per-window data
+// Win32-specific per-Window data
 //
 typedef struct _GLFWwindowWin32
 {
@@ -450,9 +450,9 @@ typedef struct _GLFWlibraryWin32
     char                keynames[GLFW_KEY_LAST + 1][5];
     // Where to place the cursor when re-enabled
     double              restoreCursorPosX, restoreCursorPosY;
-    // The window whose disabled cursor mode is active
+    // The Window whose disabled cursor mode is active
     _GLFWwindow*        disabledCursorWindow;
-    // The window the cursor is captured in
+    // The Window the cursor is captured in
     _GLFWwindow*        capturedCursorWindow;
     RAWINPUT*           rawInput;
     int                 rawInputSize;

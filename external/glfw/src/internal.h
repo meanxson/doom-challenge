@@ -386,8 +386,8 @@ struct _GLFWinitconfig
 
 // Window configuration
 //
-// Parameters relating to the creation of the window but not directly related
-// to the framebuffer.  This is used to pass window creation parameters from
+// Parameters relating to the creation of the Window but not directly related
+// to the framebuffer.  This is used to pass Window creation parameters from
 // shared code to the platform API.
 //
 struct _GLFWwndconfig
@@ -588,7 +588,7 @@ struct _GLFWmonitor
     // Physical dimensions in millimeters.
     int             widthMM, heightMM;
 
-    // The window whose video mode is current on this monitor
+    // The Window whose video mode is current on this monitor
     _GLFWwindow*    window;
 
     GLFWvidmode*    modes;
@@ -704,7 +704,7 @@ struct _GLFWplatform
     void (*getVideoMode)(_GLFWmonitor*,GLFWvidmode*);
     GLFWbool (*getGammaRamp)(_GLFWmonitor*,GLFWgammaramp*);
     void (*setGammaRamp)(_GLFWmonitor*,const GLFWgammaramp*);
-    // window
+    // Window
     GLFWbool (*createWindow)(_GLFWwindow*,const _GLFWwndconfig*,const _GLFWctxconfig*,const _GLFWfbconfig*);
     void (*destroyWindow)(_GLFWwindow*);
     void (*setWindowTitle)(_GLFWwindow*,const char*);

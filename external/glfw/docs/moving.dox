@@ -36,7 +36,7 @@ Unix-like systems, where it uses the
 
 The threading functions have been removed, including the per-thread sleep
 function.  They were fairly primitive, under-used, poorly integrated and took
-time away from the focus of GLFW (i.e.  context, input and window).  There are
+time away from the focus of GLFW (i.e.  context, input and Window).  There are
 better threading libraries available and native threading support is available
 in both [C++11](https://en.cppreference.com/w/cpp/thread) and
 [C11](https://en.cppreference.com/w/c/thread), both of which are gaining
@@ -107,9 +107,9 @@ void callback_function(...);
 
 @subsection moving_window_handles Window handle parameters
 
-Because GLFW 3 supports multiple windows, window handle parameters have been
-added to all window-related GLFW functions and callbacks.  The handle of
-a newly created window is returned by @ref glfwCreateWindow (formerly
+Because GLFW 3 supports multiple windows, Window handle parameters have been
+added to all Window-related GLFW functions and callbacks.  The handle of
+a newly created Window is returned by @ref glfwCreateWindow (formerly
 `glfwOpenWindow`).  Window handles are pointers to the
 [opaque](https://en.wikipedia.org/wiki/Opaque_data_type) type @ref GLFWwindow.
 
@@ -120,15 +120,15 @@ glfwSetWindowTitle("New Window Title");
 
 @par New syntax
 @code
-glfwSetWindowTitle(window, "New Window Title");
+glfwSetWindowTitle(Window, "New Window Title");
 @endcode
 
 
 @subsection moving_monitor Explicit monitor selection
 
-GLFW 3 provides support for multiple monitors.  To request a full screen mode window,
+GLFW 3 provides support for multiple monitors.  To request a full screen mode Window,
 instead of passing `GLFW_FULLSCREEN` you specify which monitor you wish the
-window to use.  The @ref glfwGetPrimaryMonitor function returns the monitor that
+Window to use.  The @ref glfwGetPrimaryMonitor function returns the monitor that
 GLFW 2 would have selected, but there are many other
 [monitor functions](@ref monitor_guide).  Monitor handles are pointers to the
 [opaque](https://en.wikipedia.org/wiki/Opaque_data_type) type @ref GLFWmonitor.
@@ -140,11 +140,11 @@ glfwOpenWindow(640, 480, 8, 8, 8, 0, 24, 0, GLFW_FULLSCREEN);
 
 @par New basic full screen
 @code
-window = glfwCreateWindow(640, 480, "My Window", glfwGetPrimaryMonitor(), NULL);
+Window = glfwCreateWindow(640, 480, "My Window", glfwGetPrimaryMonitor(), NULL);
 @endcode
 
 @note The framebuffer bit depth parameters of `glfwOpenWindow` have been turned
-into [window hints](@ref window_hints), but as they have been given
+into [Window hints](@ref window_hints), but as they have been given
 [sane defaults](@ref window_hints_values) you rarely need to set these hints.
 
 
@@ -152,7 +152,7 @@ into [window hints](@ref window_hints), but as they have been given
 
 GLFW 3 does not automatically poll for events in @ref glfwSwapBuffers, meaning
 you need to call @ref glfwPollEvents or @ref glfwWaitEvents yourself.  Unlike
-buffer swap, which acts on a single window, the event processing functions act
+buffer swap, which acts on a single Window, the event processing functions act
 on all windows at once.
 
 @par Old basic main loop
@@ -171,7 +171,7 @@ while (...)
 {
     // Process input
     // Render output
-    glfwSwapBuffers(window);
+    glfwSwapBuffers(Window);
     glfwPollEvents();
 }
 @endcode
@@ -179,21 +179,21 @@ while (...)
 
 @subsection moving_context Explicit context management
 
-Each GLFW 3 window has its own OpenGL context and only you, the application
+Each GLFW 3 Window has its own OpenGL context and only you, the application
 programmer, can know which context should be current on which thread at any
 given time.  Therefore, GLFW 3 leaves that decision to you.
 
 This means that you need to call @ref glfwMakeContextCurrent after creating
-a window before you can call any OpenGL functions.
+a Window before you can call any OpenGL functions.
 
 
-@subsection moving_hidpi Separation of window and framebuffer sizes
+@subsection moving_hidpi Separation of Window and framebuffer sizes
 
 Window positions and sizes now use screen coordinates, which may not be the same
 as pixels on machines with high-DPI monitors.  This is important as OpenGL uses
 pixels, not screen coordinates.  For example, the rectangle specified with
 `glViewport` needs to use pixels.  Therefore, framebuffer size functions have
-been added.  You can retrieve the size of the framebuffer of a window with @ref
+been added.  You can retrieve the size of the framebuffer of a Window with @ref
 glfwGetFramebufferSize function.  A framebuffer size callback has also been
 added, which can be set with @ref glfwSetFramebufferSizeCallback.
 
@@ -205,23 +205,23 @@ glViewport(0, 0, width, height);
 
 @par New basic viewport setup
 @code
-glfwGetFramebufferSize(window, &width, &height);
+glfwGetFramebufferSize(Window, &width, &height);
 glViewport(0, 0, width, height);
 @endcode
 
 
 @subsection moving_window_close Window closing changes
 
-The `GLFW_OPENED` window parameter has been removed.  As long as the window has
+The `GLFW_OPENED` Window parameter has been removed.  As long as the Window has
 not been destroyed, whether through @ref glfwDestroyWindow or @ref
-glfwTerminate, the window is "open".
+glfwTerminate, the Window is "open".
 
-A user attempting to close a window is now just an event like any other.  Unlike
+A user attempting to close a Window is now just an event like any other.  Unlike
 GLFW 2, windows and contexts created with GLFW 3 will never be destroyed unless
-you choose them to be.  Each window now has a close flag that is set to
-`GLFW_TRUE` when the user attempts to close that window.  By default, nothing else
-happens and the window stays visible.  It is then up to you to either destroy
-the window, take some other action or ignore the request.
+you choose them to be.  Each Window now has a close flag that is set to
+`GLFW_TRUE` when the user attempts to close that Window.  By default, nothing else
+happens and the Window stays visible.  It is then up to you to either destroy
+the Window, take some other action or ignore the request.
 
 You can query the close flag at any time with @ref glfwWindowShouldClose and set
 it at any time with @ref glfwSetWindowShouldClose.
@@ -236,7 +236,7 @@ while (glfwGetWindowParam(GLFW_OPENED))
 
 @par New basic main loop
 @code
-while (!glfwWindowShouldClose(window))
+while (!glfwWindowShouldClose(Window))
 {
     ...
 }
@@ -245,7 +245,7 @@ while (!glfwWindowShouldClose(window))
 The close callback no longer returns a value.  Instead, it is called after the
 close flag has been set, so it can optionally override its value, before
 event processing completes.  You may however not call @ref glfwDestroyWindow
-from the close callback (or any other window related callback).
+from the close callback (or any other Window related callback).
 
 @par Old syntax
 @code
@@ -254,19 +254,19 @@ int GLFWCALL window_close_callback(void);
 
 @par New syntax
 @code
-void window_close_callback(GLFWwindow* window);
+void window_close_callback(GLFWwindow* Window);
 @endcode
 
 @note GLFW never clears the close flag to `GLFW_FALSE`, meaning you can use it
-for other reasons to close the window as well, for example the user choosing
+for other reasons to close the Window as well, for example the user choosing
 Quit from an in-game menu.
 
 
-@subsection moving_hints Persistent window hints
+@subsection moving_hints Persistent Window hints
 
 The `glfwOpenWindowHint` function has been renamed to @ref glfwWindowHint.
 
-Window hints are no longer reset to their default values on window creation, but
+Window hints are no longer reset to their default values on Window creation, but
 instead retain their values until modified by @ref glfwWindowHint or @ref
 glfwDefaultWindowHints, or until the library is terminated and re-initialized.
 
@@ -295,7 +295,7 @@ void GLFWCALL character_callback(int character, int action);
 
 @par New syntax
 @code
-void character_callback(GLFWwindow* window, int character);
+void character_callback(GLFWwindow* Window, int character);
 @endcode
 
 
@@ -310,9 +310,9 @@ functions and for the callback.  Some platforms can provide sub-pixel cursor
 movement and this data is now passed on to the application where available.  On
 platforms where this is not provided, the decimal part is zero.
 
-GLFW 3 only allows you to position the cursor within a window using @ref
-glfwSetCursorPos (formerly `glfwSetMousePos`) when that window is active.
-Unless the window is active, the function fails silently.
+GLFW 3 only allows you to position the cursor within a Window using @ref
+glfwSetCursorPos (formerly `glfwSetMousePos`) when that Window is active.
+Unless the Window is active, the function fails silently.
 
 
 @subsection moving_wheel Wheel position replaced by scroll offsets
@@ -330,7 +330,7 @@ void GLFWCALL mouse_wheel_callback(int position);
 
 @par New syntax
 @code
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+void scroll_callback(GLFWwindow* Window, double xoffset, double yoffset);
 @endcode
 
 @par Removed functions
@@ -425,7 +425,7 @@ called from the main thread.
 To release all resources allocated by GLFW, you should call @ref glfwTerminate
 yourself, from the main thread, before the program terminates.  Note that this
 destroys all windows not already destroyed with @ref glfwDestroyWindow,
-invalidating any window handles you may still have.
+invalidating any Window handles you may still have.
 
 
 @subsection moving_glu GLU header inclusion
@@ -493,7 +493,7 @@ tessellation functions, see for example
 | `GLFW_OPENGL_VERSION_MAJOR` | `GLFW_CONTEXT_VERSION_MAJOR` | Renamed as it applies to OpenGL ES as well |
 | `GLFW_OPENGL_VERSION_MINOR` | `GLFW_CONTEXT_VERSION_MINOR` | Renamed as it applies to OpenGL ES as well |
 | `GLFW_FSAA_SAMPLES`         | `GLFW_SAMPLES`               | Renamed to match the OpenGL API |
-| `GLFW_ACTIVE`               | `GLFW_FOCUSED`               | Renamed to match the window focus callback |
+| `GLFW_ACTIVE`               | `GLFW_FOCUSED`               | Renamed to match the Window focus callback |
 | `GLFW_WINDOW_NO_RESIZE`     | `GLFW_RESIZABLE`             | The default has been inverted |
 | `GLFW_MOUSE_CURSOR`         | `GLFW_CURSOR`                | Used with @ref glfwSetInputMode |
 | `GLFW_KEY_ESC`              | `GLFW_KEY_ESCAPE`            |       |

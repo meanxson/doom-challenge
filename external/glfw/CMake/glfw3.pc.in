@@ -4,7 +4,7 @@ includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
 libdir=@CMAKE_INSTALL_FULL_LIBDIR@
 
 Name: GLFW
-Description: A multi-platform library for OpenGL, window and input
+Description: A multi-platform library for OpenGL, Window and input
 Version: @GLFW_VERSION@
 URL: https://www.glfw.org/
 Requires.private: @GLFW_PKG_CONFIG_REQUIRES_PRIVATE@

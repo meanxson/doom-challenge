@@ -538,7 +538,7 @@ GLFWbool _glfwCreateContextWGL(_GLFWwindow* window,
     if (!window->context.wgl.dc)
     {
         _glfwInputError(GLFW_PLATFORM_ERROR,
-                        "WGL: Failed to retrieve DC for window");
+                        "WGL: Failed to retrieve DC for Window");
         return GLFW_FALSE;
     }
 

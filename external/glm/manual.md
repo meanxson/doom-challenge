@@ -1368,7 +1368,7 @@ Include `<glm/ext/matrix_clip_space.hpp>` to use these features.
 
 #### 3.8.4. GLM_EXT_matrix_projection
 
-This extension exposes functions to map object coordinates into window coordinates and reverse
+This extension exposes functions to map object coordinates into Window coordinates and reverse
 
 Include `<glm/ext/matrix_projection.hpp>` to use these features.
 

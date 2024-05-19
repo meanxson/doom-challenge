@@ -148,7 +148,7 @@ the `VK_KHR_xlib_surface` extension.  Possible values are `GLFW_TRUE` and
 
 @anchor GLFW_WAYLAND_LIBDECOR_hint
 __GLFW_WAYLAND_LIBDECOR__ specifies whether to use
-[libdecor](https://gitlab.freedesktop.org/libdecor/libdecor) for window
+[libdecor](https://gitlab.freedesktop.org/libdecor/libdecor) for Window
 decorations where available.  Possible values are `GLFW_WAYLAND_PREFER_LIBDECOR`
 and `GLFW_WAYLAND_DISABLE_LIBDECOR`.  This is ignored on other platforms.
 
@@ -168,11 +168,11 @@ Initialization hint              | Default value                   | Supported v
 
 @subsection platform Runtime platform selection
 
-GLFW can be compiled for more than one platform (window system) at once.  This lets
+GLFW can be compiled for more than one platform (Window system) at once.  This lets
 a single library binary support both X11 and Wayland on Linux and other Unix-like systems.
 
 You can control platform selection via the @ref GLFW_PLATFORM initialization hint.  By
-default, this is set to @ref GLFW_ANY_PLATFORM, which will look for supported window
+default, this is set to @ref GLFW_ANY_PLATFORM, which will look for supported Window
 systems in order of priority and select the first one it finds.  It can also be set to any
 specific platform to have GLFW only look for that one.
 
@@ -181,8 +181,8 @@ glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
 @endcode
 
 This mechanism also provides the Null platform, which is always supported but needs to be
-explicitly requested.  This platform is effectively a stub, emulating a window system on
-a single 1080p monitor, but will not interact with any actual window system.
+explicitly requested.  This platform is effectively a stub, emulating a Window system on
+a single 1080p monitor, but will not interact with any actual Window system.
 
 @code
 glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_NULL);
@@ -275,7 +275,7 @@ been initialized.  This is done with @ref glfwTerminate.
 glfwTerminate();
 @endcode
 
-This will destroy any remaining window, monitor and cursor objects, restore any
+This will destroy any remaining Window, monitor and cursor objects, restore any
 modified gamma ramps, re-enable the screensaver if it had been disabled and free
 any other resources allocated by GLFW.
 
@@ -362,7 +362,7 @@ future that same call may generate a different error or become valid.
 
 @section coordinate_systems Coordinate systems
 
-GLFW has two primary coordinate systems: the _virtual screen_ and the window
+GLFW has two primary coordinate systems: the _virtual screen_ and the Window
 _content area_ or _content area_.  Both use the same unit: _virtual screen
 coordinates_, or just _screen coordinates_, which don't necessarily correspond
 to pixels.
@@ -374,17 +374,17 @@ pointing to the right and the Y-axis pointing down.
 
 Window and monitor positions are specified as the position of the upper-left
 corners of their content areas relative to the virtual screen, while cursor
-positions are specified relative to a window's content area.
+positions are specified relative to a Window's content area.
 
-Because the origin of the window's content area coordinate system is also the
-point from which the window position is specified, you can translate content
-area coordinates to the virtual screen by adding the window position.  The
-window frame, when present, extends out from the content area but does not
-affect the window position.
+Because the origin of the Window's content area coordinate system is also the
+point from which the Window position is specified, you can translate content
+area coordinates to the virtual screen by adding the Window position.  The
+Window frame, when present, extends out from the content area but does not
+affect the Window position.
 
 Almost all positions and sizes in GLFW are measured in screen coordinates
 relative to one of the two origins above.  This includes cursor positions,
-window positions and sizes, window frame sizes, monitor positions and video mode
+Window positions and sizes, Window frame sizes, monitor positions and video mode
 resolutions.
 
 Two exceptions are the [monitor physical size](@ref monitor_size), which is
@@ -394,7 +394,7 @@ measured in pixels.
 Pixels and screen coordinates may map 1:1 on your machine, but they won't on
 every other machine, for example on a Mac with a Retina display.  The ratio
 between screen coordinates and pixels may also change at run-time depending on
-which monitor the window is currently considered to be on.
+which monitor the Window is currently considered to be on.
 
 
 @section guarantees_limitations Guarantees and limitations
@@ -467,7 +467,7 @@ Empty events may be posted from any thread.
 
  - @ref glfwPostEmptyEvent
 
-The window user pointer and close flag may be read and written from any thread,
+The Window user pointer and close flag may be read and written from any thread,
 but this is not synchronized by GLFW.
 
  - @ref glfwGetWindowUserPointer
@@ -476,7 +476,7 @@ but this is not synchronized by GLFW.
  - @ref glfwSetWindowShouldClose
 
 These functions for working with OpenGL and OpenGL ES contexts may be called
-from any thread, but the window object is not synchronized by GLFW.
+from any thread, but the Window object is not synchronized by GLFW.
 
  - @ref glfwMakeContextCurrent
  - @ref glfwGetCurrentContext
@@ -547,7 +547,7 @@ precedence over anything stated in a guide.
 
 The order of arrival of related events is not guaranteed to be consistent
 across platforms.  The exception is synthetic key and mouse button release
-events, which are always delivered after the window defocus event.
+events, which are always delivered after the Window defocus event.
 
 
 @section intro_version Version management
@@ -607,8 +607,8 @@ __GLFW 3.4:__ The format of this string was changed to support the addition of
 The format of the string is as follows:
  - The version of GLFW
  - For each supported platform:
-   - The name of the window system API
-   - The name of the window system specific context creation API, if applicable
+   - The name of the Window system API
+   - The name of the Window system specific context creation API, if applicable
  - The names of the always supported context creation APIs EGL and OSMesa
  - Any additional compile-time options, APIs and (on Windows) what compiler was used
 

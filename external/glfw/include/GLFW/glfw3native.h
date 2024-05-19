@@ -1,6 +1,6 @@
 /*************************************************************************
  * GLFW 3.4 - www.glfw.org
- * A library for OpenGL, window and input
+ * A library for OpenGL, Window and input
  *------------------------------------------------------------------------
  * Copyright (c) 2002-2006 Marcus Geelnard
  * Copyright (c) 2006-2018 Camilla Löwy <elmindreda@glfw.org>
@@ -52,12 +52,12 @@ extern "C" {
  *  shouldn't be using them.**
  *
  *  Before the inclusion of @ref glfw3native.h, you may define zero or more
- *  window system API macro and zero or more context creation API macros.
+ *  Window system API macro and zero or more context creation API macros.
  *
  *  The chosen backends must match those the library was compiled for.  Failure
  *  to do this will cause a link-time error.
  *
- *  The available window API macros are:
+ *  The available Window API macros are:
  *  * `GLFW_EXPOSE_NATIVE_WIN32`
  *  * `GLFW_EXPOSE_NATIVE_COCOA`
  *  * `GLFW_EXPOSE_NATIVE_X11`
@@ -197,18 +197,18 @@ GLFWAPI const char* glfwGetWin32Adapter(GLFWmonitor* monitor);
  */
 GLFWAPI const char* glfwGetWin32Monitor(GLFWmonitor* monitor);
 
-/*! @brief Returns the `HWND` of the specified window.
+/*! @brief Returns the `HWND` of the specified Window.
  *
- *  @return The `HWND` of the specified window, or `NULL` if an
+ *  @return The `HWND` of the specified Window, or `NULL` if an
  *  [error](@ref error_handling) occurred.
  *
  *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED.
  *
- *  @remark The `HDC` associated with the window can be queried with the
+ *  @remark The `HDC` associated with the Window can be queried with the
  *  [GetDC](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getdc)
  *  function.
  *  @code
- *  HDC dc = GetDC(glfwGetWin32Window(window));
+ *  HDC dc = GetDC(glfwGetWin32Window(Window));
  *  @endcode
  *  This DC is private and does not need to be released.
  *
@@ -219,23 +219,23 @@ GLFWAPI const char* glfwGetWin32Monitor(GLFWmonitor* monitor);
  *
  *  @ingroup native
  */
-GLFWAPI HWND glfwGetWin32Window(GLFWwindow* window);
+GLFWAPI HWND glfwGetWin32Window(GLFWwindow* Window);
 #endif
 
 #if defined(GLFW_EXPOSE_NATIVE_WGL)
-/*! @brief Returns the `HGLRC` of the specified window.
+/*! @brief Returns the `HGLRC` of the specified Window.
  *
- *  @return The `HGLRC` of the specified window, or `NULL` if an
+ *  @return The `HGLRC` of the specified Window, or `NULL` if an
  *  [error](@ref error_handling) occurred.
  *
  *  @errors Possible errors include @ref GLFW_NO_WINDOW_CONTEXT and @ref
  *  GLFW_NOT_INITIALIZED.
  *
- *  @remark The `HDC` associated with the window can be queried with the
+ *  @remark The `HDC` associated with the Window can be queried with the
  *  [GetDC](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getdc)
  *  function.
  *  @code
- *  HDC dc = GetDC(glfwGetWin32Window(window));
+ *  HDC dc = GetDC(glfwGetWin32Window(Window));
  *  @endcode
  *  This DC is private and does not need to be released.
  *
@@ -246,7 +246,7 @@ GLFWAPI HWND glfwGetWin32Window(GLFWwindow* window);
  *
  *  @ingroup native
  */
-GLFWAPI HGLRC glfwGetWGLContext(GLFWwindow* window);
+GLFWAPI HGLRC glfwGetWGLContext(GLFWwindow* Window);
 #endif
 
 #if defined(GLFW_EXPOSE_NATIVE_COCOA)
@@ -266,9 +266,9 @@ GLFWAPI HGLRC glfwGetWGLContext(GLFWwindow* window);
  */
 GLFWAPI CGDirectDisplayID glfwGetCocoaMonitor(GLFWmonitor* monitor);
 
-/*! @brief Returns the `NSWindow` of the specified window.
+/*! @brief Returns the `NSWindow` of the specified Window.
  *
- *  @return The `NSWindow` of the specified window, or `nil` if an
+ *  @return The `NSWindow` of the specified Window, or `nil` if an
  *  [error](@ref error_handling) occurred.
  *
  *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED.
@@ -280,13 +280,13 @@ GLFWAPI CGDirectDisplayID glfwGetCocoaMonitor(GLFWmonitor* monitor);
  *
  *  @ingroup native
  */
-GLFWAPI id glfwGetCocoaWindow(GLFWwindow* window);
+GLFWAPI id glfwGetCocoaWindow(GLFWwindow* Window);
 #endif
 
 #if defined(GLFW_EXPOSE_NATIVE_NSGL)
-/*! @brief Returns the `NSOpenGLContext` of the specified window.
+/*! @brief Returns the `NSOpenGLContext` of the specified Window.
  *
- *  @return The `NSOpenGLContext` of the specified window, or `nil` if an
+ *  @return The `NSOpenGLContext` of the specified Window, or `nil` if an
  *  [error](@ref error_handling) occurred.
  *
  *  @errors Possible errors include @ref GLFW_NO_WINDOW_CONTEXT and @ref
@@ -299,7 +299,7 @@ GLFWAPI id glfwGetCocoaWindow(GLFWwindow* window);
  *
  *  @ingroup native
  */
-GLFWAPI id glfwGetNSGLContext(GLFWwindow* window);
+GLFWAPI id glfwGetNSGLContext(GLFWwindow* Window);
 #endif
 
 #if defined(GLFW_EXPOSE_NATIVE_X11)
@@ -351,9 +351,9 @@ GLFWAPI RRCrtc glfwGetX11Adapter(GLFWmonitor* monitor);
  */
 GLFWAPI RROutput glfwGetX11Monitor(GLFWmonitor* monitor);
 
-/*! @brief Returns the `Window` of the specified window.
+/*! @brief Returns the `Window` of the specified Window.
  *
- *  @return The `Window` of the specified window, or `None` if an
+ *  @return The `Window` of the specified Window, or `None` if an
  *  [error](@ref error_handling) occurred.
  *
  *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED.
@@ -365,7 +365,7 @@ GLFWAPI RROutput glfwGetX11Monitor(GLFWmonitor* monitor);
  *
  *  @ingroup native
  */
-GLFWAPI Window glfwGetX11Window(GLFWwindow* window);
+GLFWAPI Window glfwGetX11Window(GLFWwindow* Window);
 
 /*! @brief Sets the current primary selection to the specified string.
  *
@@ -419,9 +419,9 @@ GLFWAPI const char* glfwGetX11SelectionString(void);
 #endif
 
 #if defined(GLFW_EXPOSE_NATIVE_GLX)
-/*! @brief Returns the `GLXContext` of the specified window.
+/*! @brief Returns the `GLXContext` of the specified Window.
  *
- *  @return The `GLXContext` of the specified window, or `NULL` if an
+ *  @return The `GLXContext` of the specified Window, or `NULL` if an
  *  [error](@ref error_handling) occurred.
  *
  *  @errors Possible errors include @ref GLFW_NO_WINDOW_CONTEXT and @ref
@@ -434,11 +434,11 @@ GLFWAPI const char* glfwGetX11SelectionString(void);
  *
  *  @ingroup native
  */
-GLFWAPI GLXContext glfwGetGLXContext(GLFWwindow* window);
+GLFWAPI GLXContext glfwGetGLXContext(GLFWwindow* Window);
 
-/*! @brief Returns the `GLXWindow` of the specified window.
+/*! @brief Returns the `GLXWindow` of the specified Window.
  *
- *  @return The `GLXWindow` of the specified window, or `None` if an
+ *  @return The `GLXWindow` of the specified Window, or `None` if an
  *  [error](@ref error_handling) occurred.
  *
  *  @errors Possible errors include @ref GLFW_NO_WINDOW_CONTEXT and @ref
@@ -451,7 +451,7 @@ GLFWAPI GLXContext glfwGetGLXContext(GLFWwindow* window);
  *
  *  @ingroup native
  */
-GLFWAPI GLXWindow glfwGetGLXWindow(GLFWwindow* window);
+GLFWAPI GLXWindow glfwGetGLXWindow(GLFWwindow* Window);
 #endif
 
 #if defined(GLFW_EXPOSE_NATIVE_WAYLAND)
@@ -487,9 +487,9 @@ GLFWAPI struct wl_display* glfwGetWaylandDisplay(void);
  */
 GLFWAPI struct wl_output* glfwGetWaylandMonitor(GLFWmonitor* monitor);
 
-/*! @brief Returns the main `struct wl_surface*` of the specified window.
+/*! @brief Returns the main `struct wl_surface*` of the specified Window.
  *
- *  @return The main `struct wl_surface*` of the specified window, or `NULL` if
+ *  @return The main `struct wl_surface*` of the specified Window, or `NULL` if
  *  an [error](@ref error_handling) occurred.
  *
  *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED.
@@ -501,7 +501,7 @@ GLFWAPI struct wl_output* glfwGetWaylandMonitor(GLFWmonitor* monitor);
  *
  *  @ingroup native
  */
-GLFWAPI struct wl_surface* glfwGetWaylandWindow(GLFWwindow* window);
+GLFWAPI struct wl_surface* glfwGetWaylandWindow(GLFWwindow* Window);
 #endif
 
 #if defined(GLFW_EXPOSE_NATIVE_EGL)
@@ -524,9 +524,9 @@ GLFWAPI struct wl_surface* glfwGetWaylandWindow(GLFWwindow* window);
  */
 GLFWAPI EGLDisplay glfwGetEGLDisplay(void);
 
-/*! @brief Returns the `EGLContext` of the specified window.
+/*! @brief Returns the `EGLContext` of the specified Window.
  *
- *  @return The `EGLContext` of the specified window, or `EGL_NO_CONTEXT` if an
+ *  @return The `EGLContext` of the specified Window, or `EGL_NO_CONTEXT` if an
  *  [error](@ref error_handling) occurred.
  *
  *  @errors Possible errors include @ref GLFW_NO_WINDOW_CONTEXT and @ref
@@ -539,11 +539,11 @@ GLFWAPI EGLDisplay glfwGetEGLDisplay(void);
  *
  *  @ingroup native
  */
-GLFWAPI EGLContext glfwGetEGLContext(GLFWwindow* window);
+GLFWAPI EGLContext glfwGetEGLContext(GLFWwindow* Window);
 
-/*! @brief Returns the `EGLSurface` of the specified window.
+/*! @brief Returns the `EGLSurface` of the specified Window.
  *
- *  @return The `EGLSurface` of the specified window, or `EGL_NO_SURFACE` if an
+ *  @return The `EGLSurface` of the specified Window, or `EGL_NO_SURFACE` if an
  *  [error](@ref error_handling) occurred.
  *
  *  @errors Possible errors include @ref GLFW_NO_WINDOW_CONTEXT and @ref
@@ -556,13 +556,13 @@ GLFWAPI EGLContext glfwGetEGLContext(GLFWwindow* window);
  *
  *  @ingroup native
  */
-GLFWAPI EGLSurface glfwGetEGLSurface(GLFWwindow* window);
+GLFWAPI EGLSurface glfwGetEGLSurface(GLFWwindow* Window);
 #endif
 
 #if defined(GLFW_EXPOSE_NATIVE_OSMESA)
-/*! @brief Retrieves the color buffer associated with the specified window.
+/*! @brief Retrieves the color buffer associated with the specified Window.
  *
- *  @param[in] window The window whose color buffer to retrieve.
+ *  @param[in] Window The Window whose color buffer to retrieve.
  *  @param[out] width Where to store the width of the color buffer, or `NULL`.
  *  @param[out] height Where to store the height of the color buffer, or `NULL`.
  *  @param[out] format Where to store the OSMesa pixel format of the color
@@ -582,11 +582,11 @@ GLFWAPI EGLSurface glfwGetEGLSurface(GLFWwindow* window);
  *
  *  @ingroup native
  */
-GLFWAPI int glfwGetOSMesaColorBuffer(GLFWwindow* window, int* width, int* height, int* format, void** buffer);
+GLFWAPI int glfwGetOSMesaColorBuffer(GLFWwindow* Window, int* width, int* height, int* format, void** buffer);
 
-/*! @brief Retrieves the depth buffer associated with the specified window.
+/*! @brief Retrieves the depth buffer associated with the specified Window.
  *
- *  @param[in] window The window whose depth buffer to retrieve.
+ *  @param[in] Window The Window whose depth buffer to retrieve.
  *  @param[out] width Where to store the width of the depth buffer, or `NULL`.
  *  @param[out] height Where to store the height of the depth buffer, or `NULL`.
  *  @param[out] bytesPerValue Where to store the number of bytes per depth
@@ -606,11 +606,11 @@ GLFWAPI int glfwGetOSMesaColorBuffer(GLFWwindow* window, int* width, int* height
  *
  *  @ingroup native
  */
-GLFWAPI int glfwGetOSMesaDepthBuffer(GLFWwindow* window, int* width, int* height, int* bytesPerValue, void** buffer);
+GLFWAPI int glfwGetOSMesaDepthBuffer(GLFWwindow* Window, int* width, int* height, int* bytesPerValue, void** buffer);
 
-/*! @brief Returns the `OSMesaContext` of the specified window.
+/*! @brief Returns the `OSMesaContext` of the specified Window.
  *
- *  @return The `OSMesaContext` of the specified window, or `NULL` if an
+ *  @return The `OSMesaContext` of the specified Window, or `NULL` if an
  *  [error](@ref error_handling) occurred.
  *
  *  @errors Possible errors include @ref GLFW_NO_WINDOW_CONTEXT and @ref
@@ -623,7 +623,7 @@ GLFWAPI int glfwGetOSMesaDepthBuffer(GLFWwindow* window, int* width, int* height
  *
  *  @ingroup native
  */
-GLFWAPI OSMesaContext glfwGetOSMesaContext(GLFWwindow* window);
+GLFWAPI OSMesaContext glfwGetOSMesaContext(GLFWwindow* Window);
 #endif
 
 #ifdef __cplusplus

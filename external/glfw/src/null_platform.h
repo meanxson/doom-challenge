@@ -156,7 +156,7 @@
 #define GLFW_NULL_SC_MENU           120
 #define GLFW_NULL_SC_LAST           GLFW_NULL_SC_MENU
 
-// Null-specific per-window data
+// Null-specific per-Window data
 //
 typedef struct _GLFWwindowNull
 {

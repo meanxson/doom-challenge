@@ -38,14 +38,14 @@ For more information see @ref cursor_standard.
 @subsubsection mouse_passthrough_34 Mouse event passthrough
 
 GLFW now provides the [GLFW_MOUSE_PASSTHROUGH](@ref GLFW_MOUSE_PASSTHROUGH_hint)
-window hint for making a window transparent to mouse input, lettings events pass
-to whatever window is behind it.  This can also be changed after window
-creation with the matching [window attribute](@ref GLFW_MOUSE_PASSTHROUGH_attrib).
+Window hint for making a Window transparent to mouse input, lettings events pass
+to whatever Window is behind it.  This can also be changed after Window
+creation with the matching [Window attribute](@ref GLFW_MOUSE_PASSTHROUGH_attrib).
 
 
 @subsubsection wayland_libdecor_34 Wayland libdecor decorations
 
-GLFW now supports improved fallback window decorations via
+GLFW now supports improved fallback Window decorations via
 [libdecor](https://gitlab.freedesktop.org/libdecor/libdecor).
 
 Support for libdecor can be toggled before GLFW is initialized with the
@@ -55,8 +55,8 @@ enabled by default.
 
 @subsubsection wayland_app_id_34 Wayland app_id specification
 
-GLFW now supports specifying the app_id for a Wayland window using the
-[GLFW_WAYLAND_APP_ID](@ref GLFW_WAYLAND_APP_ID_hint) window hint string.
+GLFW now supports specifying the app_id for a Wayland Window using the
+[GLFW_WAYLAND_APP_ID](@ref GLFW_WAYLAND_APP_ID_hint) Window hint string.
 
 
 @subsubsection features_34_angle_backend Support for ANGLE rendering backend selection
@@ -70,7 +70,7 @@ contexts.
 
 @subsubsection captured_cursor_34 Captured cursor mode
 
-GLFW now supports confining the cursor to the window content area with the @ref
+GLFW now supports confining the cursor to the Window content area with the @ref
 GLFW_CURSOR_CAPTURED cursor mode.
 
 For more information see @ref cursor_mode.
@@ -88,17 +88,17 @@ For more information see @ref init_allocator.
 
 @subsubsection features_34_position_hint Window hints for initial position
 
-GLFW now provides the @ref GLFW_POSITION_X and @ref GLFW_POSITION_Y window hints for
-specifying the initial position of the window.  This removes the need to create a hidden
-window, move it and then show it.  The default value of these hints is
+GLFW now provides the @ref GLFW_POSITION_X and @ref GLFW_POSITION_Y Window hints for
+specifying the initial position of the Window.  This removes the need to create a hidden
+Window, move it and then show it.  The default value of these hints is
 `GLFW_ANY_POSITION`, which selects the previous behavior.
 
 
-@subsubsection features_34_win32_keymenu Support for keyboard access to Windows window menu
+@subsubsection features_34_win32_keymenu Support for keyboard access to Windows Window menu
 
 GLFW now provides the
-[GLFW_WIN32_KEYBOARD_MENU](@ref GLFW_WIN32_KEYBOARD_MENU_hint) window hint for
-enabling keyboard access to the window menu via the Alt+Space and
+[GLFW_WIN32_KEYBOARD_MENU](@ref GLFW_WIN32_KEYBOARD_MENU_hint) Window hint for
+enabling keyboard access to the Window menu via the Alt+Space and
 Alt-and-then-Space shortcuts.  This may be useful for more GUI-oriented
 applications.
 
@@ -107,7 +107,7 @@ applications.
 
 @subsubsection native_34 Multiple sets of native access functions
 
-Because GLFW now supports runtime selection of platform (window system), a library binary
+Because GLFW now supports runtime selection of platform (Window system), a library binary
 may export native access functions for multiple platforms.  Starting with version 3.4 you
 must not assume that GLFW is running on a platform just because it exports native access
 functions for it.  After initialization, you can query the selected platform with @ref
@@ -116,7 +116,7 @@ glfwGetPlatform.
 
 @subsubsection version_string_34 Version string format has been changed
 
-Because GLFW now supports runtime selection of platform (window system), the version
+Because GLFW now supports runtime selection of platform (Window system), the version
 string returned by @ref glfwGetVersionString has been expanded.  It now contains the names
 of all APIs for all the platforms that the library binary supports.
 
@@ -139,13 +139,13 @@ example by setting a [joystick callback](@ref joystick_event).
 @subsubsection wayland_alpha_34 Frambuffer may lack alpha channel on older Wayland systems
 
 On Wayland, when creating an EGL context on a machine lacking the new
-`EGL_EXT_present_opaque` extension, the @ref GLFW_ALPHA_BITS window hint will be
+`EGL_EXT_present_opaque` extension, the @ref GLFW_ALPHA_BITS Window hint will be
 ignored and the framebuffer will have no alpha channel.  This is because some
 Wayland compositors treat any buffer with an alpha channel as per-pixel
 transparent.
 
-If you want a per-pixel transparent window, see the
-[GLFW_TRANSPARENT_FRAMEBUFFER](@ref GLFW_TRANSPARENT_FRAMEBUFFER_hint) window
+If you want a per-pixel transparent Window, see the
+[GLFW_TRANSPARENT_FRAMEBUFFER](@ref GLFW_TRANSPARENT_FRAMEBUFFER_hint) Window
 hint.
 
 
@@ -186,7 +186,7 @@ GLFW_TRANSPARENT_FRAMEBUFFER on Windows 7 if DWM transparency is off
 @subsubsection emptyevents_34 Empty events on X11 no longer round-trip to server
 
 Events posted with @ref glfwPostEmptyEvent now use a separate unnamed pipe
-instead of sending an X11 client event to the helper window.
+instead of sending an X11 client event to the helper Window.
 
 
 @subsection deprecations_34 Deprecations in version 3.4

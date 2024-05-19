@@ -101,7 +101,7 @@ estimated physical size and a gamma ramp.
 @subsection monitor_modes Video modes
 
 GLFW generally does a good job selecting a suitable video mode when you create
-a full screen window, change its video mode or make a windowed one full
+a full screen Window, change its video mode or make a windowed one full
 screen, but it is sometimes useful to know exactly which video modes are
 supported.
 
@@ -139,7 +139,7 @@ glfwGetMonitorPhysicalSize(monitor, &width_mm, &height_mm);
 
 While this can be used to calculate the raw DPI of a monitor, this is often not
 useful.  Instead, use the [monitor content scale](@ref monitor_scale) and
-[window content scale](@ref window_scale) to scale your content.
+[Window content scale](@ref window_scale) to scale your content.
 
 
 @subsection monitor_scale Content scale

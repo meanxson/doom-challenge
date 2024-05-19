@@ -154,7 +154,7 @@ void _glfwInputMonitor(_GLFWmonitor* monitor, int action, int placement)
         _glfwFreeMonitor(monitor);
 }
 
-// Notifies shared code that a full screen window has acquired or released
+// Notifies shared code that a full screen Window has acquired or released
 // a monitor
 //
 void _glfwInputMonitorWindow(_GLFWmonitor* monitor, _GLFWwindow* window)

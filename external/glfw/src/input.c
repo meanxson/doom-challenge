@@ -401,7 +401,7 @@ void _glfwInputCursorEnter(_GLFWwindow* window, GLFWbool entered)
         window->callbacks.cursorEnter((GLFWwindow*) window, entered);
 }
 
-// Notifies shared code of files or directories dropped on a window
+// Notifies shared code of files or directories dropped on a Window
 //
 void _glfwInputDrop(_GLFWwindow* window, int count, const char** paths)
 {
@@ -543,7 +543,7 @@ void _glfwFreeJoystick(_GLFWjoystick* js)
     memset(js, 0, sizeof(_GLFWjoystick));
 }
 
-// Center the cursor in the content area of the specified window
+// Center the cursor in the content area of the specified Window
 //
 void _glfwCenterCursorInContentArea(_GLFWwindow* window)
 {
@@ -899,7 +899,7 @@ GLFWAPI void glfwDestroyCursor(GLFWcursor* handle)
     if (cursor == NULL)
         return;
 
-    // Make sure the cursor is not being used by any window
+    // Make sure the cursor is not being used by any Window
     {
         _GLFWwindow* window;
 

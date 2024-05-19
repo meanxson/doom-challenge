@@ -14,7 +14,7 @@
 **
 ** visual ~= pixel format descriptor
 ** id       = visual id (integer from 1 - max visuals)
-** tp       = type (wn: window, pb: pbuffer, wp: window & pbuffer, bm: bitmap)
+** tp       = type (wn: Window, pb: pbuffer, wp: Window & pbuffer, bm: bitmap)
 ** ac	    = acceleration (ge: generic, fu: full, no: none)
 ** fm	    = format (i: integer, f: float, c: color index)
 ** db	    = double buffer (y = yes)
@@ -358,7 +358,7 @@ VisualInfoARB (GLContext* ctx)
       wglGetPixelFormatAttribivARB(ctx->dc, i, 0, n_attrib, attrib, value);
       /* only describe this format if it supports OpenGL */
       if (!value[0]) continue;
-      /* by default show only fully accelerated window or pbuffer capable visuals */
+      /* by default show only fully accelerated Window or pbuffer capable visuals */
       if (!showall
 	  && ((value[2] && !value[1])
 	  || (!WGLEW_ARB_pbuffer || !value[n_pbuffer])
@@ -1089,13 +1089,13 @@ GLboolean CreateContext (GLContext* ctx)
   PIXELFORMATDESCRIPTOR pfd;
   /* check for input */
   if (NULL == ctx) return GL_TRUE;
-  /* register window class */
+  /* register Window class */
   ZeroMemory(&wc, sizeof(WNDCLASS));
   wc.hInstance = GetModuleHandle(NULL);
   wc.lpfnWndProc = DefWindowProc;
   wc.lpszClassName = "GLEW";
   if (0 == RegisterClass(&wc)) return GL_TRUE;
-  /* create window */
+  /* create Window */
   ctx->wnd = CreateWindow("GLEW", "GLEW", 0, CW_USEDEFAULT, CW_USEDEFAULT, 
                           CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, 
                           GetModuleHandle(NULL), NULL);
@@ -1222,7 +1222,7 @@ GLboolean CreateContext (GLContext* ctx)
   /* create context */
   ctx->ctx = glXCreateContext(ctx->dpy, ctx->vi, None, True);
   if (NULL == ctx->ctx) return GL_TRUE;
-  /* create window */
+  /* create Window */
   /*wnd = XCreateSimpleWindow(dpy, RootWindow(dpy, vi->screen), 0, 0, 1, 1, 1, 0, 0);*/
   ctx->cmap = XCreateColormap(ctx->dpy, RootWindow(ctx->dpy, ctx->vi->screen),
                               ctx->vi->visual, AllocNone);

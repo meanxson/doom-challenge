@@ -333,7 +333,7 @@ static void createKeyTables(void)
     }
 }
 
-// Window procedure for the hidden helper window
+// Window procedure for the hidden helper Window
 //
 static LRESULT CALLBACK helperWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -368,7 +368,7 @@ static LRESULT CALLBACK helperWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LP
     return DefWindowProcW(hWnd, uMsg, wParam, lParam);
 }
 
-// Creates a dummy window for behind-the-scenes work
+// Creates a dummy Window for behind-the-scenes work
 //
 static GLFWbool createHelperWindow(void)
 {
@@ -384,14 +384,14 @@ static GLFWbool createHelperWindow(void)
     if (!_glfw.win32.helperWindowClass)
     {
         _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "Win32: Failed to register helper window class");
+                             "Win32: Failed to register helper Window class");
         return GLFW_FALSE;
     }
 
     _glfw.win32.helperWindowHandle =
         CreateWindowExW(WS_EX_OVERLAPPEDWINDOW,
                         MAKEINTATOM(_glfw.win32.helperWindowClass),
-                        L"GLFW message window",
+                        L"GLFW message Window",
                         WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
                         0, 0, 1, 1,
                         NULL, NULL,
@@ -401,7 +401,7 @@ static GLFWbool createHelperWindow(void)
     if (!_glfw.win32.helperWindowHandle)
     {
         _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "Win32: Failed to create helper window");
+                             "Win32: Failed to create helper Window");
         return GLFW_FALSE;
     }
 

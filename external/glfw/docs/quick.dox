@@ -5,8 +5,8 @@
 @tableofcontents
 
 This guide takes you through writing a small application using GLFW 3.  The
-application will create a window and OpenGL context, render a rotating triangle
-and exit when the user closes the window or presses _Escape_.  This guide will
+application will create a Window and OpenGL context, render a rotating triangle
+and exit when the user closes the Window or presses _Escape_.  This guide will
 introduce a few of the most commonly used functions, but there are many more.
 
 This guide assumes no experience with earlier versions of GLFW.  If you
@@ -85,7 +85,7 @@ functions that require it.
 @subsection quick_capture_error Setting an error callback
 
 Most events are reported through callbacks, whether it's a key being pressed,
-a GLFW window being moved, or an error occurring.  Callbacks are C functions (or
+a GLFW Window being moved, or an error occurring.  Callbacks are C functions (or
 C++ static methods) that are called by GLFW with arguments describing the event.
 
 In case a GLFW function fails, an error is reported to the GLFW error callback.
@@ -109,30 +109,30 @@ glfwSetErrorCallback(error_callback);
 @endcode
 
 
-@subsection quick_create_window Creating a window and context
+@subsection quick_create_window Creating a Window and context
 
-The window and its OpenGL context are created with a single call to @ref
-glfwCreateWindow, which returns a handle to the created combined window and
+The Window and its OpenGL context are created with a single call to @ref
+glfwCreateWindow, which returns a handle to the created combined Window and
 context object
 
 @code
-GLFWwindow* window = glfwCreateWindow(640, 480, "My Title", NULL, NULL);
-if (!window)
+GLFWwindow* Window = glfwCreateWindow(640, 480, "My Title", NULL, NULL);
+if (!Window)
 {
     // Window or OpenGL context creation failed
 }
 @endcode
 
-This creates a 640 by 480 windowed mode window with an OpenGL context.  If
-window or OpenGL context creation fails, `NULL` will be returned.  You should
-always check the return value.  While window creation rarely fails, context
+This creates a 640 by 480 windowed mode Window with an OpenGL context.  If
+Window or OpenGL context creation fails, `NULL` will be returned.  You should
+always check the return value.  While Window creation rarely fails, context
 creation depends on properly installed drivers and may fail even on machines
 with the necessary hardware.
 
 By default, the OpenGL context GLFW creates may have any version.  You can
 require a minimum OpenGL version by setting the `GLFW_CONTEXT_VERSION_MAJOR` and
 `GLFW_CONTEXT_VERSION_MINOR` hints _before_ creation.  If the required minimum
-version is not supported on the machine, context (and window) creation fails.
+version is not supported on the machine, context (and Window) creation fails.
 
 You can select the OpenGL profile by setting the `GLFW_OPENGL_PROFILE` hint.
 This program uses the core profile as that is the only profile macOS supports
@@ -142,20 +142,20 @@ for OpenGL 3.x and 4.x.
 glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-GLFWwindow* window = glfwCreateWindow(640, 480, "My Title", NULL, NULL);
-if (!window)
+GLFWwindow* Window = glfwCreateWindow(640, 480, "My Title", NULL, NULL);
+if (!Window)
 {
     // Window or context creation failed
 }
 @endcode
 
-When a window and context is no longer needed, destroy it.
+When a Window and context is no longer needed, destroy it.
 
 @code
-glfwDestroyWindow(window);
+glfwDestroyWindow(Window);
 @endcode
 
-Once this function is called, no more events will be delivered for that window
+Once this function is called, no more events will be delivered for that Window
 and its handle becomes invalid.
 
 
@@ -164,11 +164,11 @@ and its handle becomes invalid.
 Before you can use the OpenGL API, you must have a current OpenGL context.
 
 @code
-glfwMakeContextCurrent(window);
+glfwMakeContextCurrent(Window);
 @endcode
 
 The context will remain current until you make another context current or until
-the window owning the current context is destroyed.
+the Window owning the current context is destroyed.
 
 If you are using an [extension loader library](@ref context_glext_auto) to
 access modern OpenGL then this is when to initialize it, as the loader needs
@@ -181,50 +181,50 @@ gladLoadGL(glfwGetProcAddress);
 @endcode
 
 
-@subsection quick_window_close Checking the window close flag
+@subsection quick_window_close Checking the Window close flag
 
-Each window has a flag indicating whether the window should be closed.
+Each Window has a flag indicating whether the Window should be closed.
 
-When the user attempts to close the window, either by pressing the close widget
+When the user attempts to close the Window, either by pressing the close widget
 in the title bar or using a key combination like Alt+F4, this flag is set to 1.
-Note that __the window isn't actually closed__, so you are expected to monitor
-this flag and either destroy the window or give some kind of feedback to the
+Note that __the Window isn't actually closed__, so you are expected to monitor
+this flag and either destroy the Window or give some kind of feedback to the
 user.
 
 @code
-while (!glfwWindowShouldClose(window))
+while (!glfwWindowShouldClose(Window))
 {
     // Keep running
 }
 @endcode
 
-You can be notified when the user is attempting to close the window by setting
+You can be notified when the user is attempting to close the Window by setting
 a close callback with @ref glfwSetWindowCloseCallback.  The callback will be
 called immediately after the close flag has been set.
 
 You can also set it yourself with @ref glfwSetWindowShouldClose.  This can be
-useful if you want to interpret other kinds of input as closing the window, like
+useful if you want to interpret other kinds of input as closing the Window, like
 for example pressing the _Escape_ key.
 
 
 @subsection quick_key_input Receiving input events
 
-Each window has a large number of callbacks that can be set to receive all the
+Each Window has a large number of callbacks that can be set to receive all the
 various kinds of events.  To receive key press and release events, create a key
 callback function.
 
 @code
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+static void key_callback(GLFWwindow* Window, int key, int scancode, int action, int mods)
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, GLFW_TRUE);
+        glfwSetWindowShouldClose(Window, GLFW_TRUE);
 }
 @endcode
 
-The key callback, like other window related callbacks, are set per-window.
+The key callback, like other Window related callbacks, are set per-Window.
 
 @code
-glfwSetKeyCallback(window, key_callback);
+glfwSetKeyCallback(Window, key_callback);
 @endcode
 
 In order for event callbacks to be called when events occur, you need to process
@@ -239,7 +239,7 @@ size needs to be retrieved for `glViewport`.
 
 @code
 int width, height;
-glfwGetFramebufferSize(window, &width, &height);
+glfwGetFramebufferSize(Window, &width, &height);
 glViewport(0, 0, width, height);
 @endcode
 
@@ -255,7 +255,7 @@ a few of them:
  - [Open.GL](https://open.gl/)
 
 These all happen to use GLFW, but OpenGL itself works the same whatever API you
-use to create the window and context.
+use to create the Window and context.
 
 
 @subsection quick_timer Reading the timer
@@ -272,7 +272,7 @@ double time = glfwGetTime();
 
 @subsection quick_swap_buffers Swapping buffers
 
-GLFW windows by default use double buffering.  That means that each window has
+GLFW windows by default use double buffering.  That means that each Window has
 two rendering buffers; a front buffer and a back buffer.  The front buffer is
 the one being displayed and the back buffer the one you render to.
 
@@ -280,7 +280,7 @@ When the entire frame has been rendered, the buffers need to be swapped with one
 another, so the back buffer becomes the front buffer and vice versa.
 
 @code
-glfwSwapBuffers(window);
+glfwSwapBuffers(Window);
 @endcode
 
 The swap interval indicates how many frames to wait until swapping the buffers,
@@ -306,7 +306,7 @@ current.
 
 @subsection quick_process_events Processing events
 
-GLFW needs to communicate regularly with the window system both in order to
+GLFW needs to communicate regularly with the Window system both in order to
 receive events and to show that the application hasn't locked up.  Event
 processing must be done regularly while you have visible windows and is normally
 done each frame after buffer swapping.
@@ -329,12 +329,12 @@ for example, many kinds of editing tools.
 
 @section quick_example Putting it together
 
-Now that you know how to initialize GLFW, create a window and poll for
+Now that you know how to initialize GLFW, create a Window and poll for
 keyboard input, it's possible to create a small program.
 
-This program creates a 640 by 480 windowed mode window and starts a loop that
+This program creates a 640 by 480 windowed mode Window and starts a loop that
 clears the screen, renders a triangle and processes events until the user either
-presses _Escape_ or closes the window.
+presses _Escape_ or closes the Window.
 
 @snippet triangle-opengl.c code
 

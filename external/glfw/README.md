@@ -47,7 +47,7 @@ features or fixing bugs.
 
 ## Compiling GLFW
 
-GLFW itself requires only the headers and libraries for your OS and window
+GLFW itself requires only the headers and libraries for your OS and Window
 system.  It does not need the headers for any context creation API (WGL, GLX,
 EGL, NSGL, OSMesa) or rendering API (OpenGL, OpenGL ES, Vulkan) to enable
 support for them.
@@ -82,7 +82,7 @@ more information.
 GLFW supports Windows XP and later and macOS 10.8 and later.  Linux and other
 Unix-like systems running the X Window System are supported even without
 a desktop environment or modern extensions, although some features require
-a running window or clipboard manager.  The OSMesa backend requires Mesa 6.3.
+a running Window or clipboard manager.  The OSMesa backend requires Mesa 6.3.
 
 See the [compatibility guide](https://www.glfw.org/docs/latest/compat.html)
 in the documentation for more information.
@@ -91,7 +91,7 @@ in the documentation for more information.
 ## Dependencies
 
 GLFW itself needs only CMake 3.1 or later and the headers and libraries for your
-OS and window system.
+OS and Window system.
 
 The examples and test programs depend on a number of tiny libraries.  These are
 located in the `deps/` directory.
@@ -137,17 +137,17 @@ information on what to include when reporting a bug.
  - Added `GLFW_RESIZE_EW_CURSOR` alias for `GLFW_HRESIZE_CURSOR` (#427)
  - Added `GLFW_RESIZE_NS_CURSOR` alias for `GLFW_VRESIZE_CURSOR` (#427)
  - Added `GLFW_POINTING_HAND_CURSOR` alias for `GLFW_HAND_CURSOR` (#427)
- - Added `GLFW_MOUSE_PASSTHROUGH` window hint for letting mouse input pass
-   through the window (#1236,#1568)
- - Added `GLFW_CURSOR_CAPTURED` cursor mode to confine the cursor to the window
+ - Added `GLFW_MOUSE_PASSTHROUGH` Window hint for letting mouse input pass
+   through the Window (#1236,#1568)
+ - Added `GLFW_CURSOR_CAPTURED` cursor mode to confine the cursor to the Window
    content area (#58)
- - Added `GLFW_POSITION_X` and `GLFW_POSITION_Y` window hints for initial position
+ - Added `GLFW_POSITION_X` and `GLFW_POSITION_Y` Window hints for initial position
    (#1603,#1747)
- - Added `GLFW_ANY_POSITION` hint value for letting the window manager choose (#1603,#1747)
+ - Added `GLFW_ANY_POSITION` hint value for letting the Window manager choose (#1603,#1747)
  - Added `GLFW_PLATFORM_UNAVAILABLE` error for platform detection failures (#1958)
  - Added `GLFW_FEATURE_UNAVAILABLE` error for platform limitations (#1692)
  - Added `GLFW_FEATURE_UNIMPLEMENTED` error for incomplete backends (#1692)
- - Added `GLFW_WAYLAND_APP_ID` window hint string for Wayland app\_id selection
+ - Added `GLFW_WAYLAND_APP_ID` Window hint string for Wayland app\_id selection
    (#2121,#2122)
  - Added `GLFW_ANGLE_PLATFORM_TYPE` init hint and `GLFW_ANGLE_PLATFORM_TYPE_*`
    values to select ANGLE backend (#1380)
@@ -162,7 +162,7 @@ information on what to include when reporting a bug.
  - Added `GLFW_PKG_CONFIG_REQUIRES_PRIVATE` and `GLFW_PKG_CONFIG_LIBS_PRIVATE` CMake
    variables exposing pkg-config dependencies (#1307)
  - Made joystick subsystem initialize at first use (#1284,#1646)
- - Made `GLFW_DOUBLEBUFFER` a read-only window attribute
+ - Made `GLFW_DOUBLEBUFFER` a read-only Window attribute
  - Updated the minimum required CMake version to 3.1
  - Updated gamepad mappings from upstream
  - Disabled tests and examples by default when built as a CMake subdirectory
@@ -183,18 +183,18 @@ information on what to include when reporting a bug.
  - Bugfix: `glfwMakeContextCurrent` would access TLS slot before initialization
  - Bugfix: `glfwSetGammaRamp` could emit `GLFW_INVALID_VALUE` before initialization
  - Bugfix: `glfwGetJoystickUserPointer` returned `NULL` during disconnection (#2092)
- - [Win32] Added the `GLFW_WIN32_KEYBOARD_MENU` window hint for enabling access
-           to the window menu
+ - [Win32] Added the `GLFW_WIN32_KEYBOARD_MENU` Window hint for enabling access
+           to the Window menu
  - [Win32] Added a version info resource to the GLFW DLL
- - [Win32] Made hidden helper window use its own window class
+ - [Win32] Made hidden helper Window use its own Window class
  - [Win32] Disabled framebuffer transparency on Windows 7 when DWM windows are
    opaque (#1512)
  - [Win32] Bugfix: `GLFW_INCLUDE_VULKAN` plus `VK_USE_PLATFORM_WIN32_KHR` caused
    symbol redefinition (#1524)
  - [Win32] Bugfix: The cursor position event was emitted before its cursor enter
    event (#1490)
- - [Win32] Bugfix: The window hint `GLFW_MAXIMIZED` did not move or resize the
-   window (#1499)
+ - [Win32] Bugfix: The Window hint `GLFW_MAXIMIZED` did not move or resize the
+   Window (#1499)
  - [Win32] Bugfix: Disabled cursor mode interfered with some non-client actions
  - [Win32] Bugfix: Super key was not released after Win+V hotkey (#1622)
  - [Win32] Bugfix: `glfwGetKeyName` could access out of bounds and return an
@@ -217,11 +217,11 @@ information on what to include when reporting a bug.
  - [Win32] Bugfix: Content scale queries could fail silently (#1615)
  - [Win32] Bugfix: Content scales could have garbage values if monitor was recently
    disconnected (#1615)
- - [Win32] Bugfix: A window created maximized and undecorated would cover the whole
+ - [Win32] Bugfix: A Window created maximized and undecorated would cover the whole
    monitor (#1806)
- - [Win32] Bugfix: The default restored window position was lost when creating a maximized
-   window
- - [Win32] Bugfix: `glfwMaximizeWindow` would make a hidden window visible
+ - [Win32] Bugfix: The default restored Window position was lost when creating a maximized
+   Window
+ - [Win32] Bugfix: `glfwMaximizeWindow` would make a hidden Window visible
  - [Win32] Bugfix: `Alt+PrtSc` would emit `GLFW_KEY_UNKNOWN` and a different
    scancode than `PrtSc` (#1993)
  - [Win32] Bugfix: `GLFW_KEY_PAUSE` scancode from `glfwGetKeyScancode` did not
@@ -240,7 +240,7 @@ information on what to include when reporting a bug.
  - [Cocoa] Bugfix: `glfwSetWindowSize` used a bottom-left anchor point (#1553)
  - [Cocoa] Bugfix: Window remained on screen after destruction until event poll
    (#1412)
- - [Cocoa] Bugfix: Event processing before window creation would assert (#1543)
+ - [Cocoa] Bugfix: Event processing before Window creation would assert (#1543)
  - [Cocoa] Bugfix: Undecorated windows could not be iconified on recent macOS
  - [Cocoa] Bugfix: Touching event queue from secondary thread before main thread
    would abort (#1649)
@@ -272,11 +272,11 @@ information on what to include when reporting a bug.
  - [X11] Bugfix: The CMake files did not check for the XInput headers (#1480)
  - [X11] Bugfix: Key names were not updated when the keyboard layout changed
    (#1462,#1528)
- - [X11] Bugfix: Decorations could not be enabled after window creation (#1566)
+ - [X11] Bugfix: Decorations could not be enabled after Window creation (#1566)
  - [X11] Bugfix: Content scale fallback value could be inconsistent (#1578)
  - [X11] Bugfix: `glfwMaximizeWindow` had no effect on hidden windows
- - [X11] Bugfix: Clearing `GLFW_FLOATING` on a hidden window caused invalid read
- - [X11] Bugfix: Changing `GLFW_FLOATING` on a hidden window could silently fail
+ - [X11] Bugfix: Clearing `GLFW_FLOATING` on a hidden Window caused invalid read
+ - [X11] Bugfix: Changing `GLFW_FLOATING` on a hidden Window could silently fail
  - [X11] Bugfix: Disabled cursor mode was interrupted by indicator windows
  - [X11] Bugfix: Monitor physical dimensions could be reported as zero mm
  - [X11] Bugfix: Window position events were not emitted during resizing (#1613)
@@ -294,7 +294,7 @@ information on what to include when reporting a bug.
    combinations (#1598)
  - [X11] Bugfix: Keys pressed simultaneously with others were not always
    reported (#1112,#1415,#1472,#1616)
- - [X11] Bugfix: Some window attributes were not applied on leaving fullscreen
+ - [X11] Bugfix: Some Window attributes were not applied on leaving fullscreen
    (#1863)
  - [X11] Bugfix: Changing `GLFW_FLOATING` could leak memory
  - [X11] Bugfix: Icon pixel format conversion worked only by accident, relying on
@@ -311,7 +311,7 @@ information on what to include when reporting a bug.
  - [X11] Bugfix: The OSMesa libray was not unloaded on termination
  - [X11] Bugfix: A malformed response during selection transfer could cause a segfault
  - [X11] Bugfix: Some calls would reset Xlib to the default error handler (#2108)
- - [Wayland] Added improved fallback window decorations via libdecor (#1639,#1693)
+ - [Wayland] Added improved fallback Window decorations via libdecor (#1639,#1693)
  - [Wayland] Added dynamic loading of all Wayland libraries
  - [Wayland] Added support for key names via xkbcommon
  - [Wayland] Added support for file path drop events (#2040)
@@ -321,7 +321,7 @@ information on what to include when reporting a bug.
  - [Wayland] Removed support for `wl_shell` (#1443)
  - [Wayland] Bugfix: The `GLFW_HAND_CURSOR` shape used the wrong image (#1432)
  - [Wayland] Bugfix: `CLOCK_MONOTONIC` was not correctly enabled
- - [Wayland] Bugfix: Repeated keys could be reported with `NULL` window (#1704)
+ - [Wayland] Bugfix: Repeated keys could be reported with `NULL` Window (#1704)
  - [Wayland] Bugfix: Retrieving partial framebuffer size would segfault
  - [Wayland] Bugfix: Scrolling offsets were inverted compared to other platforms
    (#1463)
@@ -332,12 +332,12 @@ information on what to include when reporting a bug.
  - [Wayland] Bugfix: Non-arrow cursors are offset from the hotspot (#1706,#1899)
  - [Wayland] Bugfix: The `O_CLOEXEC` flag was not defined on FreeBSD
  - [Wayland] Bugfix: Key repeat could lead to a race condition (#1710)
- - [Wayland] Bugfix: Activating a window would emit two input focus events
- - [Wayland] Bugfix: Disable key repeat mechanism when window loses input focus
+ - [Wayland] Bugfix: Activating a Window would emit two input focus events
+ - [Wayland] Bugfix: Disable key repeat mechanism when Window loses input focus
  - [Wayland] Bugfix: Window hiding and showing did not work (#1492,#1731)
- - [Wayland] Bugfix: A key being repeated was not released when window lost focus
- - [Wayland] Bugfix: Showing a hidden window did not emit a window refresh event
- - [Wayland] Bugfix: Full screen window creation did not ignore `GLFW_VISIBLE`
+ - [Wayland] Bugfix: A key being repeated was not released when Window lost focus
+ - [Wayland] Bugfix: Showing a hidden Window did not emit a Window refresh event
+ - [Wayland] Bugfix: Full screen Window creation did not ignore `GLFW_VISIBLE`
  - [Wayland] Bugfix: Some keys were reported as wrong key or `GLFW_KEY_UNKNOWN`
  - [Wayland] Bugfix: Text input did not repeat along with key repeat
  - [Wayland] Bugfix: `glfwPostEmptyEvent` sometimes had no effect (#1520,#1521)
@@ -351,17 +351,17 @@ information on what to include when reporting a bug.
  - [Wayland] Bugfix: The OSMesa library was not unloaded on termination
  - [Wayland] Bugfix: `glfwCreateWindow` could emit `GLFW_FEATURE_UNAVAILABLE`
  - [Wayland] Bugfix: Lock key modifier bits were only set when lock keys were pressed
- - [Wayland] Bugfix: A window leaving full screen mode would be iconified (#1995)
- - [Wayland] Bugfix: A window leaving full screen mode ignored its desired size
+ - [Wayland] Bugfix: A Window leaving full screen mode would be iconified (#1995)
+ - [Wayland] Bugfix: A Window leaving full screen mode ignored its desired size
  - [Wayland] Bugfix: `glfwSetWindowMonitor` did not update windowed mode size
- - [Wayland] Bugfix: `glfwRestoreWindow` would make a full screen window windowed
- - [Wayland] Bugfix: A window maximized or restored by the user would enter an
+ - [Wayland] Bugfix: `glfwRestoreWindow` would make a full screen Window windowed
+ - [Wayland] Bugfix: A Window maximized or restored by the user would enter an
    inconsistent state
  - [Wayland] Bugfix: Window maximization events were not emitted
  - [Wayland] Bugfix: `glfwRestoreWindow` assumed it was always in windowed mode
- - [Wayland] Bugfix: `glfwSetWindowSize` would resize a full screen window
- - [Wayland] Bugfix: A window content scale event would be emitted every time
-   the window resized
+ - [Wayland] Bugfix: `glfwSetWindowSize` would resize a full screen Window
+ - [Wayland] Bugfix: A Window content scale event would be emitted every time
+   the Window resized
  - [Wayland] Bugfix: If `glfwInit` failed it would close stdin
  - [Wayland] Bugfix: Manual resizing with fallback decorations behaved erratically
    (#1991,#2115,#2127)
@@ -376,11 +376,11 @@ information on what to include when reporting a bug.
    scale changed
  - [Wayland] Bugfix: `glfwSetWindowAspectRatio` reported an error instead of
    applying the specified ratio
- - [Wayland] Bugfix: `GLFW_MAXIMIZED` window hint had no effect
+ - [Wayland] Bugfix: `GLFW_MAXIMIZED` Window hint had no effect
  - [Wayland] Bugfix: `glfwRestoreWindow` had no effect before first show
- - [Wayland] Bugfix: Hiding and then showing a window caused program abort on
+ - [Wayland] Bugfix: Hiding and then showing a Window caused program abort on
    wlroots compositors (#1268)
- - [Wayland] Bugfix: `GLFW_DECORATED` was ignored when showing a window with XDG
+ - [Wayland] Bugfix: `GLFW_DECORATED` was ignored when showing a Window with XDG
    decorations
  - [Wayland] Bugfix: Connecting a mouse after `glfwInit` would segfault (#1450)
  - [Wayland] Bugfix: Joysticks connected after `glfwInit` were not detected (#2198)

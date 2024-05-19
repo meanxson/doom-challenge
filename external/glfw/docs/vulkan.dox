@@ -150,7 +150,7 @@ about `vkGetDeviceProcAddr`, see the Vulkan documentation.
 @section vulkan_ext Querying required Vulkan extensions
 
 To do anything useful with Vulkan you need to create an instance.  If you want
-to use Vulkan to render to a window, you must enable the instance extensions
+to use Vulkan to render to a Window, you must enable the instance extensions
 GLFW requires to create Vulkan surfaces.
 
 To query the instance extensions required, call @ref
@@ -167,7 +167,7 @@ glfwCreateWindowSurface.  The set of extensions will vary depending on platform
 and may also vary depending on graphics drivers and other factors.
 
 If it fails it will return `NULL` and GLFW will not be able to create Vulkan
-window surfaces.  You can still use Vulkan for off-screen rendering and compute
+Window surfaces.  You can still use Vulkan for off-screen rendering and compute
 work.
 
 If successful the returned array will always include `VK_KHR_surface`, so if
@@ -200,7 +200,7 @@ information, see the Vulkan and MoltenVK documentation.
 
 Not every queue family of every Vulkan device can present images to surfaces.
 To check whether a specific queue family of a physical device supports image
-presentation without first having to create a window and surface, call @ref
+presentation without first having to create a Window and surface, call @ref
 glfwGetPhysicalDevicePresentationSupport.
 
 @code
@@ -215,36 +215,36 @@ The `VK_KHR_surface` extension additionally provides the
 an existing Vulkan surface.
 
 
-@section vulkan_window Creating the window
+@section vulkan_window Creating the Window
 
-Unless you will be using OpenGL or OpenGL ES with the same window as Vulkan,
+Unless you will be using OpenGL or OpenGL ES with the same Window as Vulkan,
 there is no need to create a context.  You can disable context creation with the
 [GLFW_CLIENT_API](@ref GLFW_CLIENT_API_hint) hint.
 
 @code
 glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-GLFWwindow* window = glfwCreateWindow(640, 480, "Window Title", NULL, NULL);
+GLFWwindow* Window = glfwCreateWindow(640, 480, "Window Title", NULL, NULL);
 @endcode
 
 See @ref context_less for more information.
 
 
-@section vulkan_surface Creating a Vulkan window surface
+@section vulkan_surface Creating a Vulkan Window surface
 
 You can create a Vulkan surface (as defined by the `VK_KHR_surface` extension)
-for a GLFW window with @ref glfwCreateWindowSurface.
+for a GLFW Window with @ref glfwCreateWindowSurface.
 
 @code
 VkSurfaceKHR surface;
-VkResult err = glfwCreateWindowSurface(instance, window, NULL, &surface);
+VkResult err = glfwCreateWindowSurface(instance, Window, NULL, &surface);
 if (err)
 {
     // Window surface creation failed
 }
 @endcode
 
-If an OpenGL or OpenGL ES context was created on the window, the context has
-ownership of the presentation on the window and a Vulkan surface cannot be
+If an OpenGL or OpenGL ES context was created on the Window, the context has
+ownership of the presentation on the Window and a Vulkan surface cannot be
 created.
 
 It is your responsibility to destroy the surface.  GLFW does not destroy it for

@@ -56,7 +56,7 @@ static const char* getEGLErrorString(EGLint error)
         case EGL_BAD_CONFIG:
             return "An EGLConfig argument does not name a valid EGL frame buffer configuration";
         case EGL_BAD_CURRENT_SURFACE:
-            return "The current surface of the calling thread is a window, pixel buffer or pixmap that is no longer valid";
+            return "The current surface of the calling thread is a Window, pixel buffer or pixmap that is no longer valid";
         case EGL_BAD_DISPLAY:
             return "An EGLDisplay argument does not name a valid EGL display connection";
         case EGL_BAD_SURFACE:
@@ -68,7 +68,7 @@ static const char* getEGLErrorString(EGLint error)
         case EGL_BAD_NATIVE_PIXMAP:
             return "A NativePixmapType argument does not refer to a valid native pixmap";
         case EGL_BAD_NATIVE_WINDOW:
-            return "A NativeWindowType argument does not refer to a valid native window";
+            return "A NativeWindowType argument does not refer to a valid native Window";
         case EGL_CONTEXT_LOST:
             return "The application must destroy all contexts and reinitialise";
         default:
@@ -135,7 +135,7 @@ static GLFWbool chooseEGLConfig(const _GLFWctxconfig* ctxconfig,
         if (getEGLConfigAttrib(n, EGL_COLOR_BUFFER_TYPE) != EGL_RGB_BUFFER)
             continue;
 
-        // Only consider window EGLConfigs
+        // Only consider Window EGLConfigs
         if (!(getEGLConfigAttrib(n, EGL_SURFACE_TYPE) & EGL_WINDOW_BIT))
             continue;
 
@@ -282,8 +282,8 @@ static void swapBuffersEGL(_GLFWwindow* window)
 #if defined(_GLFW_WAYLAND)
     if (_glfw.platform.platformID == GLFW_PLATFORM_WAYLAND)
     {
-        // NOTE: Swapping buffers on a hidden window on Wayland makes it visible
-        if (!window->wl.visible)
+        // NOTE: Swapping buffers on a hidden Window on Wayland makes it visible
+        if (!Window->wl.visible)
             return;
     }
 #endif
@@ -725,7 +725,7 @@ GLFWbool _glfwCreateContextEGL(_GLFWwindow* window,
     if (window->context.egl.surface == EGL_NO_SURFACE)
     {
         _glfwInputError(GLFW_PLATFORM_ERROR,
-                        "EGL: Failed to create window surface: %s",
+                        "EGL: Failed to create Window surface: %s",
                         getEGLErrorString(eglGetError()));
         return GLFW_FALSE;
     }

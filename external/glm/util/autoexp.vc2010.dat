@@ -11,7 +11,7 @@
 ; For good examples, read the rules in this file.
 ;
 ; To find what the debugger considers the type of a variable to
-; be, add it to the Watch window and look at the Type column.
+; be, add it to the Watch Window and look at the Type column.
 ;
 ; An AutoExpand rule is a line with the name of a type, an equals
 ; sign, and text with replaceable parts in angle brackets. The
@@ -67,7 +67,7 @@
 ; second argument is the name of the export from the DLL to use. For
 ; further information on this API see the sample called EEAddIn.
 ;
-; WARNING: if hexadecimal mode is on in the watch window, all numbers here are
+; WARNING: if hexadecimal mode is on in the watch Window, all numbers here are
 ; evaluated in hex, e.g. 42 becomes 0x42
 
 [AutoExpand]

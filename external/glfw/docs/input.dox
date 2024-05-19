@@ -19,8 +19,8 @@ only received via callbacks, like scrolling, many provide both callbacks and
 polling.  Callbacks are more work to use than polling but is less CPU intensive
 and guarantees that you do not miss state changes.
 
-All input callbacks receive a window handle.  By using the
-[window user pointer](@ref window_userptr), you can access non-global structures
+All input callbacks receive a Window handle.  By using the
+[Window user pointer](@ref window_userptr), you can access non-global structures
 or objects from your callbacks.
 
 To get a better feel for how the various events callbacks behave, run the
@@ -31,8 +31,8 @@ information.
 
 @section events Event processing
 
-GLFW needs to poll the window system for events both to provide input to the
-application and to prove to the window system that the application hasn't locked
+GLFW needs to poll the Window system for events both to provide input to the
+application and to prove to the Window system that the application hasn't locked
 up.  Event processing is normally done each frame after
 [buffer swapping](@ref buffer_swap).  Even when you have no windows, event
 polling needs to be done in order to receive monitor and joystick connection
@@ -48,7 +48,7 @@ glfwPollEvents();
 
 This is the best choice when rendering continuously, like most games do.
 
-If you only need to update the contents of the window when you receive new
+If you only need to update the contents of the Window when you receive new
 input, @ref glfwWaitEvents is a better choice.
 
 @code
@@ -80,14 +80,14 @@ glfwPostEmptyEvent();
 
 Do not assume that callbacks will _only_ be called in response to the above
 functions.  While it is necessary to process events in one or more of the ways
-above, window systems that require GLFW to register callbacks of its own can
-pass events to GLFW in response to many window system function calls.  GLFW will
+above, Window systems that require GLFW to register callbacks of its own can
+pass events to GLFW in response to many Window system function calls.  GLFW will
 pass those events on to the application callbacks before returning.
 
 For example, on Windows the system function that @ref glfwSetWindowSize is
-implemented with will send window size events directly to the event callback
-that every window has and that GLFW implements for its windows.  If you have set
-a [window size callback](@ref window_size) GLFW will call it in turn with the
+implemented with will send Window size events directly to the event callback
+that every Window has and that GLFW implements for its windows.  If you have set
+a [Window size callback](@ref window_size) GLFW will call it in turn with the
 new size before everything returns back out of the @ref glfwSetWindowSize call.
 
 
@@ -109,14 +109,14 @@ If you wish to be notified when a physical key is pressed or released or when it
 repeats, set a key callback.
 
 @code
-glfwSetKeyCallback(window, key_callback);
+glfwSetKeyCallback(Window, key_callback);
 @endcode
 
 The callback function receives the [keyboard key](@ref keys), platform-specific
 scancode, key action and [modifier bits](@ref mods).
 
 @code
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+void key_callback(GLFWwindow* Window, int key, int scancode, int action, int mods)
 {
     if (key == GLFW_KEY_E && action == GLFW_PRESS)
         activate_airship();
@@ -151,10 +151,10 @@ set_key_mapping(scancode, swap_weapons);
 @endcode
 
 The last reported state for every [named key](@ref keys) is also saved in
-per-window state arrays that can be polled with @ref glfwGetKey.
+per-Window state arrays that can be polled with @ref glfwGetKey.
 
 @code
-int state = glfwGetKey(window, GLFW_KEY_E);
+int state = glfwGetKey(Window, GLFW_KEY_E);
 if (state == GLFW_PRESS)
 {
     activate_airship();
@@ -173,7 +173,7 @@ missed the key press.  The recommended solution for this is to use a
 key callback, but there is also the `GLFW_STICKY_KEYS` input mode.
 
 @code
-glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+glfwSetInputMode(Window, GLFW_STICKY_KEYS, GLFW_TRUE);
 @endcode
 
 When sticky keys mode is enabled, the pollable state of a key will remain
@@ -186,7 +186,7 @@ If you wish to know what the state of the Caps Lock and Num Lock keys was when
 input events were generated, set the `GLFW_LOCK_KEY_MODS` input mode.
 
 @code
-glfwSetInputMode(window, GLFW_LOCK_KEY_MODS, GLFW_TRUE);
+glfwSetInputMode(Window, GLFW_LOCK_KEY_MODS, GLFW_TRUE);
 @endcode
 
 When this input mode is enabled, any callback that receives
@@ -213,7 +213,7 @@ you can treat the code point argument as native endian UTF-32.
 If you wish to offer regular text input, set a character callback.
 
 @code
-glfwSetCharCallback(window, character_callback);
+glfwSetCharCallback(Window, character_callback);
 @endcode
 
 The callback function receives Unicode code points for key events that would
@@ -221,7 +221,7 @@ have led to regular text input and generally behaves as a standard text field on
 that platform.
 
 @code
-void character_callback(GLFWwindow* window, unsigned int codepoint)
+void character_callback(GLFWwindow* Window, unsigned int codepoint)
 {
 }
 @endcode
@@ -252,29 +252,29 @@ a custom image or a standard cursor shape from the system theme.
 
 @subsection cursor_pos Cursor position
 
-If you wish to be notified when the cursor moves over the window, set a cursor
+If you wish to be notified when the cursor moves over the Window, set a cursor
 position callback.
 
 @code
-glfwSetCursorPosCallback(window, cursor_position_callback);
+glfwSetCursorPosCallback(Window, cursor_position_callback);
 @endcode
 
 The callback functions receives the cursor position, measured in screen
-coordinates but relative to the top-left corner of the window content area.  On
+coordinates but relative to the top-left corner of the Window content area.  On
 platforms that provide it, the full sub-pixel cursor position is passed on.
 
 @code
-static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
+static void cursor_position_callback(GLFWwindow* Window, double xpos, double ypos)
 {
 }
 @endcode
 
-The cursor position is also saved per-window and can be polled with @ref
+The cursor position is also saved per-Window and can be polled with @ref
 glfwGetCursorPos.
 
 @code
 double xpos, ypos;
-glfwGetCursorPos(window, &xpos, &ypos);
+glfwGetCursorPos(Window, &xpos, &ypos);
 @endcode
 
 
@@ -291,10 +291,10 @@ schemes that require unlimited mouse movement, set the cursor mode to
 `GLFW_CURSOR_DISABLED`.
 
 @code
-glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+glfwSetInputMode(Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 @endcode
 
-This will hide the cursor and lock it to the specified window.  GLFW will then
+This will hide the cursor and lock it to the specified Window.  GLFW will then
 take care of all the details of cursor re-centering and offset calculation and
 providing the application with a virtual cursor position.  This virtual position
 is provided normally via both the cursor position callback and through polling.
@@ -303,30 +303,30 @@ is provided normally via both the cursor position callback and through polling.
 other features of GLFW.  It is not supported and will not work as robustly as
 `GLFW_CURSOR_DISABLED`.
 
-If you only wish the cursor to become hidden when it is over a window but still
+If you only wish the cursor to become hidden when it is over a Window but still
 want it to behave normally, set the cursor mode to `GLFW_CURSOR_HIDDEN`.
 
 @code
-glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+glfwSetInputMode(Window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 @endcode
 
 This mode puts no limit on the motion of the cursor.
 
 If you wish the cursor to be visible but confined to the content area of the
-window, set the cursor mode to `GLFW_CURSOR_CAPTURED`.
+Window, set the cursor mode to `GLFW_CURSOR_CAPTURED`.
 
 @code
-glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_CAPTURED);
+glfwSetInputMode(Window, GLFW_CURSOR, GLFW_CURSOR_CAPTURED);
 @endcode
 
 The cursor will behave normally inside the content area but will not be able to
-leave unless the window loses focus.
+leave unless the Window loses focus.
 
 To exit out of either of these special modes, restore the `GLFW_CURSOR_NORMAL`
 cursor mode.
 
 @code
-glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+glfwSetInputMode(Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 @endcode
 
 If the cursor was disabled, this will move it back to its last visible position.
@@ -350,10 +350,10 @@ disabled by default.
 
 @code
 if (glfwRawMouseMotionSupported())
-    glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+    glfwSetInputMode(Window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 @endcode
 
-If supported, raw mouse motion can be enabled or disabled per-window and at any
+If supported, raw mouse motion can be enabled or disabled per-Window and at any
 time but it will only be provided when the cursor is disabled.
 
 
@@ -415,65 +415,65 @@ When a cursor is no longer needed, destroy it with @ref glfwDestroyCursor.
 glfwDestroyCursor(cursor);
 @endcode
 
-Cursor destruction always succeeds.  If the cursor is current for any window,
-that window will revert to the default cursor.  This does not affect the cursor
+Cursor destruction always succeeds.  If the cursor is current for any Window,
+that Window will revert to the default cursor.  This does not affect the cursor
 mode.  All remaining cursors are destroyed when @ref glfwTerminate is called.
 
 
 @subsubsection cursor_set Cursor setting
 
-A cursor can be set as current for a window with @ref glfwSetCursor.
+A cursor can be set as current for a Window with @ref glfwSetCursor.
 
 @code
-glfwSetCursor(window, cursor);
+glfwSetCursor(Window, cursor);
 @endcode
 
 Once set, the cursor image will be used as long as the system cursor is over the
-content area of the window and the [cursor mode](@ref cursor_mode) is set
+content area of the Window and the [cursor mode](@ref cursor_mode) is set
 to `GLFW_CURSOR_NORMAL`.
 
 A single cursor may be set for any number of windows.
 
-To revert to the default cursor, set the cursor of that window to `NULL`.
+To revert to the default cursor, set the cursor of that Window to `NULL`.
 
 @code
-glfwSetCursor(window, NULL);
+glfwSetCursor(Window, NULL);
 @endcode
 
-When a cursor is destroyed, any window that has it set will revert to the
+When a cursor is destroyed, any Window that has it set will revert to the
 default cursor.  This does not affect the cursor mode.
 
 
 @subsection cursor_enter Cursor enter/leave events
 
 If you wish to be notified when the cursor enters or leaves the content area of
-a window, set a cursor enter/leave callback.
+a Window, set a cursor enter/leave callback.
 
 @code
-glfwSetCursorEnterCallback(window, cursor_enter_callback);
+glfwSetCursorEnterCallback(Window, cursor_enter_callback);
 @endcode
 
 The callback function receives the new classification of the cursor.
 
 @code
-void cursor_enter_callback(GLFWwindow* window, int entered)
+void cursor_enter_callback(GLFWwindow* Window, int entered)
 {
     if (entered)
     {
-        // The cursor entered the content area of the window
+        // The cursor entered the content area of the Window
     }
     else
     {
-        // The cursor left the content area of the window
+        // The cursor left the content area of the Window
     }
 }
 @endcode
 
 You can query whether the cursor is currently inside the content area of the
-window with the [GLFW_HOVERED](@ref GLFW_HOVERED_attrib) window attribute.
+Window with the [GLFW_HOVERED](@ref GLFW_HOVERED_attrib) Window attribute.
 
 @code
-if (glfwGetWindowAttrib(window, GLFW_HOVERED))
+if (glfwGetWindowAttrib(Window, GLFW_HOVERED))
 {
     highlight_interface();
 }
@@ -486,14 +486,14 @@ If you wish to be notified when a mouse button is pressed or released, set
 a mouse button callback.
 
 @code
-glfwSetMouseButtonCallback(window, mouse_button_callback);
+glfwSetMouseButtonCallback(Window, mouse_button_callback);
 @endcode
 
 The callback function receives the [mouse button](@ref buttons), button action
 and [modifier bits](@ref mods).
 
 @code
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+void mouse_button_callback(GLFWwindow* Window, int button, int action, int mods)
 {
     if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
         popup_menu();
@@ -503,10 +503,10 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 The action is one of `GLFW_PRESS` or `GLFW_RELEASE`.
 
 Mouse button states for [named buttons](@ref buttons) are also saved in
-per-window state arrays that can be polled with @ref glfwGetMouseButton.
+per-Window state arrays that can be polled with @ref glfwGetMouseButton.
 
 @code
-int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+int state = glfwGetMouseButton(Window, GLFW_MOUSE_BUTTON_LEFT);
 if (state == GLFW_PRESS)
 {
     upgrade_cow();
@@ -526,7 +526,7 @@ mouse button callback, but there is also the `GLFW_STICKY_MOUSE_BUTTONS`
 input mode.
 
 @code
-glfwSetInputMode(window, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
+glfwSetInputMode(Window, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
 @endcode
 
 When sticky mouse buttons mode is enabled, the pollable state of a mouse button
@@ -545,13 +545,13 @@ If you wish to be notified when the user scrolls, whether with a mouse wheel or
 touchpad gesture, set a scroll callback.
 
 @code
-glfwSetScrollCallback(window, scroll_callback);
+glfwSetScrollCallback(Window, scroll_callback);
 @endcode
 
 The callback function receives two-dimensional scroll offsets.
 
 @code
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+void scroll_callback(GLFWwindow* Window, double xoffset, double yoffset)
 {
 }
 @endcode
@@ -580,7 +580,7 @@ terminated, so as joysticks are connected and disconnected, there may appear
 gaps in the IDs.
 
 Joystick axis, button and hat state is updated when polled and does not require
-a window to be created or events to be processed.  However, if you want joystick
+a Window to be created or events to be processed.  However, if you want joystick
 connection and disconnection events reliably delivered to the
 [joystick callback](@ref joystick_event) then you must
 [process events](@ref events).
@@ -953,16 +953,16 @@ glfwSetClipboardString(NULL, "A string with words in it");
 @section path_drop Path drop input
 
 If you wish to receive the paths of files and/or directories dropped on
-a window, set a file drop callback.
+a Window, set a file drop callback.
 
 @code
-glfwSetDropCallback(window, drop_callback);
+glfwSetDropCallback(Window, drop_callback);
 @endcode
 
 The callback function receives an array of paths encoded as UTF-8.
 
 @code
-void drop_callback(GLFWwindow* window, int count, const char** paths)
+void drop_callback(GLFWwindow* Window, int count, const char** paths)
 {
     int i;
     for (i = 0;  i < count;  i++)

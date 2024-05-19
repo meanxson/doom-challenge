@@ -365,7 +365,7 @@ void _glfwInputError(int code, const char* format, ...)
         else if (code == GLFW_FORMAT_UNAVAILABLE)
             strcpy(description, "The requested format is unavailable");
         else if (code == GLFW_NO_WINDOW_CONTEXT)
-            strcpy(description, "The specified window has no context");
+            strcpy(description, "The specified Window has no context");
         else if (code == GLFW_CURSOR_UNAVAILABLE)
             strcpy(description, "The specified cursor shape is unavailable");
         else if (code == GLFW_FEATURE_UNAVAILABLE)
